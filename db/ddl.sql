@@ -64,7 +64,7 @@ CREATE TABLE users (
     password VARCHAR(256)
 );
 
-CREATE TABLE user_fish(
+CREATE TABLE user_fish (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	FOREIGN KEY (user) REFERENCES users (id),
 	FOREIGN KEY (fish) REFERENCES fish (id),
@@ -72,7 +72,7 @@ CREATE TABLE user_fish(
 	catched BOOLEAN FALSE
 );
 
-CREATE TABLE user_bugs(
+CREATE TABLE user_bugs (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	FOREIGN KEY (user) REFERENCES users (id),
 	FOREIGN KEY (bug) REFERENCES bugs (id),
