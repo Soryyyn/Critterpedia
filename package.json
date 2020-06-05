@@ -1,25 +1,22 @@
 {
   "name": "critterpedia",
-  "version": "1.0.0",
-  "description": "Critterpedia from Animal Crossing",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Soryyyn/Critterpedia.git"
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-router": "^3.2.0"
   },
-  "keywords": [
-    "critter",
-    "pedia",
-    "animal",
-    "crossing"
-  ],
-  "author": "Soryn Bächli",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Soryyyn/Critterpedia/issues"
-  },
-  "homepage": "https://github.com/Soryyyn/Critterpedia#readme"
+  "devDependencies": {
+    "@vue/cli-plugin-router": "~4.4.0",
+    "@vue/cli-plugin-typescript": "~4.4.0",
+    "@vue/cli-service": "~4.4.0",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^8.0.2",
+    "typescript": "~3.9.3",
+    "vue-template-compiler": "^2.6.11"
+  }
 }
