@@ -2,7 +2,9 @@ CREATE IF NOT EXISTS DATABASE critterpedia;
 USE DATABASE critterpedia;
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user_fish;
 DROP TABLE IF EXISTS fish;
+DROP TABLE IF EXISTS user_bugs;
 DROP TABLE IF EXISTS bugs;
 DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS shadow_sizes;
@@ -60,4 +62,20 @@ CREATE TABLE users (
     name VARCHAR(50),
     surname VARCHAR(50),
     password VARCHAR(256)
+);
+
+CREATE TABLE user_fish(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	FOREIGN KEY (user) REFERENCES users (id),
+	FOREIGN KEY (fish) REFERENCES fish (id),
+	favorited BOOLEAN FALSE,
+	catched BOOLEAN FALSE
+);
+
+CREATE TABLE user_bugs(
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	FOREIGN KEY (user) REFERENCES users (id),
+	FOREIGN KEY (bug) REFERENCES bugs (id),
+	favorited BOOLEAN FALSE,
+	catched BOOLEAN FALSE
 );
