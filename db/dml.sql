@@ -2,7 +2,7 @@ USE DATABASE critterpedia;
 
 INSERT INTO shadow_sizes (size) VALUES
     ("Narrow"),
-    ("Smallest"),
+    ("X-Small"),
     ("Small"),
     ("Medium"),
     ("Large"),
@@ -61,3 +61,128 @@ INSERT INTO rarities (rarity) VALUES
     ("Very Rare (2%)"),
     ("Ultra Rare (1%)"),
     ("5 per day (-)");
+
+INSERT INTO time_of_days (start, end) VALUES
+    ("04:00:00", "19:00:00"),
+    ("08:00:00", "17:00:00"),
+    ("08:00:00", "19:00:00"),
+    ("09:00:00", "16:00:00"),
+    ("16:00:00", "09:00:00"),
+    ("17:00:00", "04:00:00"),
+    ("17:00:00", "08:00:00"),
+    ("19:00:00", "04:00:00"),
+    ("19:00:00", "08:00:00"),
+    ("22:00:00", "04:00:00"),
+    ("22:00:00", "08:00:00"),
+    ("00:00:00", "24:00:00");
+
+INSERT INTO fish (name, description, time_of_year_north_start, time_of_year_north_end, time_of_year_south_start, time_of_year_south_end, time_of_day_start, time_of_day_end, location, shadow_size, price_nooks_cranny, )
+    (
+        "Bitterling",
+        "I caught a bitterling! It's mad at me, but only a little.",
+        "2020-11-01",
+        "2021-03-01",
+        "2020-04-01",
+        "2020-09-01",
+        12,
+        2,
+        2,
+        900,
+        1350
+    ), (
+        "Pale Chub",
+        "I caught a pale chub! That name seems a bit judgy...",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        4,
+        2,
+        2,
+        200,
+        300
+    ), (
+        "Crucian Carp",
+        "I caught a crucian carp! My skills are sharp!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        12,
+        2,
+        3,
+        160,
+        240
+    ), (
+        "Dace",
+        "I caught a dace! Hope I have some space!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        5,
+        2,
+        4,
+        240,
+        360
+    ), (
+        "Carp",
+        "I caught a carp! If I catch another, they can carpool!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        12,
+        1,
+        5,
+        300,
+        450
+    ), (
+        "Koi",
+        "I caught a koi! I don't know why it's so shy... or such a bad speller...",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        5,
+        1,
+        5,
+        4000,
+        6000
+    ), (
+        "Goldfish",
+        "I caught a goldfish! It's worth its weight in fish!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        12,
+        1,
+        2,
+        1300,
+        1950
+    ), (
+        "Pop-Eyed Goldfish",
+        "I caught a pop-eyed goldfish! It looks so...surprised!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        4
+        1,
+        2,
+        1300,
+        1950
+    ), (
+        "Ranchu Goldfish",
+        "I caught a Ranchu Goldfish! But I prefer balsamicu goldfish!",
+        "2020-01-01",
+        "2021-01-01",
+        "2020-01-01",
+        "2021-01-01",
+        4,
+        1,
+        2,
+        1300,
+        1950
+    ),
