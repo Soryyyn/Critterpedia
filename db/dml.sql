@@ -174,6 +174,18 @@ INSERT INTO fish (name, description, time_of_year_north_start, time_of_year_nort
         2,
         1300,
         1950
+    ),(
+        "Ranchu Goldfish",
+        "I caught a Ranchu Goldfish! But I prefer balsamicu goldfish!",
+        1,
+        12,
+        1,
+        12,
+        4
+        1,
+        3,
+        4500,
+        6750
     ), (
         "Killifish",
         "I caught a killifish! The streams are safe again",
