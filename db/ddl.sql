@@ -8,7 +8,8 @@ DROP TABLE IF EXISTS user_bugs;
 DROP TABLE IF EXISTS bugs;
 DROP TABLE IF EXISTS locations;
 DROP TABLE IF EXISTS shadow_sizes;
-DROP TABLE IF EXISTS rarities:
+DROP TABLE IF EXISTS rarities;
+DROP TABLE IF EXISTS time_of_days;
 
 CREATE TABLE shadow_sizes (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -25,6 +26,12 @@ CREATE TABLE rarities (
     rarity VARCHAR(50)
 );
 
+CREATE TABLE time_of_days (
+    id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    `start` TIME,
+    `end` TIME,
+);
+
 CREATE TABLE fish (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50),
@@ -33,8 +40,7 @@ CREATE TABLE fish (
     time_of_year_north_end DATE,
     time_of_year_south_start DATE,
     time_of_year_south_end DATE,
-    time_of_day_start TIME,
-    time_of_day_end TIME,
+    FOREIGN KEY (time_of_day) REFERENCES time_of_days (id),
     FOREIGN KEY (location) REFERENCES locations (id),
     FOREIGN KEY (shadow_size) REFERENCES shadow_sizes (id),
     price_nooks_cranny INT UNSIGNED,
@@ -49,8 +55,7 @@ CREATE TABLE bugs (
     time_of_year_north_end DATE,
     time_of_year_south_start DATE,
     time_of_year_south_end DATE,
-    time_of_day_start TIME,
-    time_of_day_end TIME,
+    FOREIGN KEY (time_of_day) REFERENCES time_of_days (id),
     FOREIGN KEY (location) REFERENCES locations (id),
     FOREIGN KEY (rarity) REFERENCES rarities (id),
     price_nooks_cranny INT UNSIGNED,
