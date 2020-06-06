@@ -9,25 +9,30 @@
 </template>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+// import fonts
+@font-face {
+  font-family: "Biko Regular";
+  src: url("./assets/fonts/Biko_Regular.otf");
+}
+@font-face {
+  font-family: "Biko Bold";
+  src: url("./assets/fonts/Biko_Bold.otf");
+}
+@font-face {
+  font-family: "Biko Black";
+  src: url("./assets/fonts/Biko_Black.otf");
 }
 
-#nav {
-  padding: 30px;
+* {
+  padding: 0;
+  margin: 0;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+body,
+html {
+  height: 100%;
+  width: 100%;
+  background: rgb(255, 239, 225);
 }
 
 // ".router-link-exact-active" used for style current nav
