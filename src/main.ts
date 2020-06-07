@@ -5,6 +5,7 @@ import App from './App.vue';
 // other imports
 import router from './router/router';
 
+
 // hide console msg
 Vue.config.productionTip = false;
 
