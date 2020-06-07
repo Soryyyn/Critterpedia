@@ -8,27 +8,29 @@
     </h1>
 
     <h3 id="desc">
-      This website helps you with catching all fish & bugs in Animal Crossing: New Horizons
-      It shows you which fish & bugs are currently catchable. If you create a login, you can even favorite them and mark them as catched to keep track of your catches.
+      This website helps you with catching all fish & bugs in
+      <br />Animal Crossing: New Horizons.
+      <br />
+      <br />It shows you which fish & bugs are currently catchable. If you create a login, you can even favorite them and mark them as catched to keep track of your catches.
     </h3>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import NavComponent from '@/components/NavComponent.vue'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    NavComponent
   }
 }
 </script>
 
 <style scoped lang="scss">
 #home {
-  // border: 2px solid red;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -60,7 +62,6 @@ export default {
   }
 
   #desc {
-    // border: 2px green solid;
     width: 65%;
     text-align: center;
     color: lighten(rgba(28, 26, 31, 1), 20%);

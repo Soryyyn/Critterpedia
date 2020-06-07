@@ -11,13 +11,18 @@ Vue.use(VueRouter);
 // create all routes
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home
   },
   {
     path: '/about',
     name: 'About',
+  },
+  {
+    // default
+    path: '*',
+    redirect: '/home'
   }
 ];
 

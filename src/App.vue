@@ -1,14 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">About</router-link>
-    </div>
+    <Navigation></Navigation>
     <router-view />
   </div>
 </template>
 
+<script lang="ts">
+import Vue from 'vue';
+import NavComponent from '@/components/NavComponent.vue';
+
+export default Vue.extend({
+  name: 'app',
+  components: {
+    'Navigation': NavComponent
+  }
+})
+</script>
+
 <style lang="scss">
+// import font awesome icons
+@import "../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
 // import fonts
 @font-face {
   font-family: "Biko Regular";
@@ -34,6 +46,4 @@ html {
   width: 100%;
   background: rgb(255, 239, 225);
 }
-
-// ".router-link-exact-active" used for style current nav
 </style>
