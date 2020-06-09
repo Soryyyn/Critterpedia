@@ -7,6 +7,17 @@
           Home
         </p>
       </router-link>
+      <router-link tag="li" to="/fish">
+        <i class="fas fa-fish"></i>
+        Fish
+      </router-link>
+      <router-link tag="li" to="/bugs">
+        <i class="fas fa-bug"></i>
+        Bugs
+      </router-link>
+      <router-link tag="li" to="/user">
+        <i class="fas fa-user"></i>
+      </router-link>
     </ul>
   </nav>
 </template>
@@ -23,9 +34,7 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100vw;
-  background: darken(rgb(255, 239, 225), 5%);
-  box-shadow: 0px 5px 15px darken(rgb(255, 239, 225), 3%);
+  width: 100%;
   padding: 10px;
 }
 
@@ -38,29 +47,49 @@ ul {
 
 ul li {
   padding: 10px;
-  background: lighten(rgb(255, 239, 225), 2%);
+  background: lighten(rgb(255, 239, 225), 8%);
   position: relative;
+  border: 2px solid darken(rgb(255, 239, 225), 5%);
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
+  box-shadow: 5px 7px 0px darken(rgb(255, 239, 225), 5%);
+  transition: 0.1s ease-in-out;
+  color: rgba(28, 26, 31, 1);
+  font-size: 20px;
+  font-family: "Biko Regular";
+  font-weight: bold;
+
+  &:not(:first-child):not(:last-child) {
+    margin-left: 10px;
+  }
+
+  &:last-child {
+    margin-left: auto;
+    margin-right: 20px;
+  }
 
   &.router-link-exact-active {
-    background: lighten(rgb(255, 239, 225), 5%);
+    border: 2px solid darken(rgb(255, 239, 225), 15%);
+    box-shadow: 5px 7px 0px darken(rgb(255, 239, 225), 15%);
   }
 
-  .fa-home {
-    color: rgba(28, 26, 31, 1);
-    font-size: 24px;
+  &:hover {
+    transition: 0.1s ease-in-out;
+    transform: scale(1.1);
   }
 
-  p {
+  .fa-home,
+  .fa-fish,
+  .fa-bug {
     color: rgba(28, 26, 31, 1);
-    font-size: 24px;
+    font-size: 20px;
+    margin-right: 5px;
+  }
+
+  .fa-user {
+    margin-left: 2px;
+    margin-right: 2px;
   }
 }
-
-// ul li:last-child {
-//   margin-left: auto;
-//   margin-right: 20px;
-// }
 </style>
