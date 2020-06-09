@@ -45,5 +45,6 @@ html {
   height: 100%;
   width: 100%;
   background: rgb(255, 239, 225);
+  overflow-x: hidden;
 }
 </style>
