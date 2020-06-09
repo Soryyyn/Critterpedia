@@ -1,21 +1,22 @@
 <template>
   <nav>
     <ul>
-      <router-link tag="li" to="/home">
+      <router-link tag="li" :to="{ name: 'Home'}">
         <p>
           <i class="fas fa-home"></i>
           Home
         </p>
       </router-link>
-      <router-link tag="li" to="/fish">
+      <router-link tag="li" :to="{ name: 'Fish'}">
         <i class="fas fa-fish"></i>
         Fish
       </router-link>
-      <router-link tag="li" to="/bugs">
+      <router-link tag="li" :to="{ name: 'Bugs'}">
         <i class="fas fa-bug"></i>
         Bugs
       </router-link>
-      <router-link tag="li" to="/user">
+      <!-- add userid as param -->
+      <router-link tag="li" :to="{ name: 'User'}">
         <i class="fas fa-user"></i>
       </router-link>
     </ul>
