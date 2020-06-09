@@ -16,8 +16,17 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/fish',
+    name: 'Fish',
+  },
+  {
+    path: '/bugs',
+    name: 'Bugs',
+  },
+  {
+    // add beforeenter here to check if user is logged in
+    path: '/user',
+    name: 'User',
   },
   {
     // default
