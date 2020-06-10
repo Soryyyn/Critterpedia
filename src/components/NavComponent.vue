@@ -2,10 +2,8 @@
   <nav>
     <ul>
       <router-link tag="li" :to="{ name: 'Home'}">
-        <p>
-          <i class="fas fa-home"></i>
-          Home
-        </p>
+        <i class="fas fa-home"></i>
+        Home
       </router-link>
       <router-link tag="li" :to="{ name: 'Fish'}">
         <i class="fas fa-fish"></i>
@@ -58,8 +56,7 @@ ul li {
   transition: 0.1s ease-in-out;
   color: rgba(28, 26, 31, 1);
   font-size: 20px;
-  font-family: "Biko Regular";
-  font-weight: bold;
+  font-family: "Biko Bold";
 
   &:not(:first-child):not(:last-child) {
     margin-left: 10px;

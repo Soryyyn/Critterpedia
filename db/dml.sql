@@ -378,4 +378,104 @@ INSERT INTO fish (name, description, time_of_year_north, time_of_year_south, tim
         6,
         15000,
         22500
+    ), (
+        "Salmon",
+        "I caught a salmon! It's all upstream from here!",
+        "Sep",
+        "Mar",
+        12,
+        3,
+        5,
+        700,
+        1050
+    ), (
+        "King Salmon",
+        "I caught a King salmon! Checkmate!",
+        "Sep",
+        "Mar",
+        12,
+        3,
+        6,
+        1800,
+        2700
+    ), (
+        "Mitten Crab",
+        "I caught a mitten crab! One more and I'm ready for winter!",
+        "Sep - Nov",
+        "Mar - May",
+        5,
+        2,
+        3,
+        2000,
+        3000
+    ), (
+        "Guppy",
+        "I caught a guppy! Welcome to the team, newbie!",
+        "Apr - Nov",
+        "Oct - May",
+        4,
+        2,
+        2,
+        1300,
+        1950
+    ), (
+        "Nibble Fish",
+        "I caught a nibble fish! Come to think of it, I could use a bite!",
+        "May – Sep",
+        "Nov – Mar",
+        4,
+        2,
+        2,
+        1500,
+        2250
+    ), (
+        "Angelfish",
+        "I caught an angelfish! That other fish told me to do it!",
+        "May – Oct",
+        "Nov – Apr",
+        5,
+        2,
+        3,
+        3000,
+        4500
+    ), (
+        "Betta",
+        "I caught a betta! I betta not drop it!",
+        "May – Oct",
+        "Nov – Apr",
+        4,
+        2,
+        3,
+        2500,
+        3750
+    ), (
+        "Neon Tetra",
+        "I caught a neon tetra! Wasn't hard to track.",
+        "Apr – Nov",
+        "Oct – May",
+        4,
+        2,
+        2,
+        500,
+        750
+    ), (
+        "Rainbowfish",
+        "I caught a rainbowfish! Where's my pot of goldfish?",
+        "May – Oct",
+        "Nov – Apr",
+        4,
+        2,
+        2,
+        800,
+        1200
+    ), (
+        "Piranha",
+        "I caught a piranha! Sure hope it was the only one!",
+        "Jun – Sep",
+        "Dec – Mar",
+        4,
+        2,
+        2,
+        2500,
+        3750
     ),
