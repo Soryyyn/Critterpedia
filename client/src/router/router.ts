@@ -4,6 +4,7 @@ import Vue from 'vue';
 // other imports
 import VueRouter, { RouteConfig } from 'vue-router';
 import Home from './views/Home.vue';
+import Fish from './views/Fish.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -18,6 +19,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/fish',
     name: 'Fish',
+    component: Fish
   },
   {
     path: '/bugs',
