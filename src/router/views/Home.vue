@@ -17,8 +17,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
 import NavComponent from '@/components/NavComponent.vue'
 
 export default {
@@ -48,14 +46,14 @@ export default {
     color: rgba(28, 26, 31, 1);
     font-family: "Biko Bold";
     font-size: 64px;
-    text-shadow: 3px 3px 5px rgba(28, 26, 31, 0.3);
+    text-shadow: 3px 3px 0px rgba(28, 26, 31, 0.3);
     margin-bottom: 1rem;
     text-align: center;
 
     #critterpedia {
       color: rgb(255, 205, 67);
       font-family: "Biko Black";
-      text-shadow: 3px 3px 5px darken(rgba(255, 205, 67, 0.3), 30%);
+      text-shadow: 3px 3px 0px darken(rgba(255, 205, 67, 0.3), 30%);
       -webkit-text-stroke-width: 2px;
       -webkit-text-stroke-color: darken(rgba(255, 205, 67, 1), 30%);
     }
