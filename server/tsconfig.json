@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "lib": [
+      "ES6"
+    ],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noEmitOnError": true,
+    "noImplicitReturns": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "watch": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
