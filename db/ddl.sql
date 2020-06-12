@@ -1,5 +1,5 @@
-CREATE IF NOT EXISTS DATABASE critterpedia;
-USE DATABASE critterpedia;
+CREATE DATABASE IF NOT EXISTS critterpedia;
+USE critterpedia;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS user_fish;
@@ -28,8 +28,8 @@ CREATE TABLE rarities (
 
 CREATE TABLE time_of_days (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `start` TIME,
-    `end` TIME,
+    start TIME,
+    end TIME
 );
 
 CREATE TABLE fish (
@@ -38,9 +38,12 @@ CREATE TABLE fish (
     description VARCHAR(256),
     time_of_year_north VARCHAR(50),
     time_of_year_south VARCHAR(50),
-    FOREIGN KEY (time_of_day) REFERENCES time_of_days (id),
-    FOREIGN KEY (location) REFERENCES locations (id),
-    FOREIGN KEY (shadow_size) REFERENCES shadow_sizes (id),
+    time_of_day INT UNSIGNED,
+    location INT UNSIGNED,
+    shadow_size INT UNSIGNED,
+    FOREIGN KEY (time_of_day) REFERENCES time_of_days(id),
+    FOREIGN KEY (location) REFERENCES locations(id),
+    FOREIGN KEY (shadow_size) REFERENCES shadow_sizes(id),
     price_nooks_cranny INT UNSIGNED,
     price_cj INT UNSIGNED
 );
@@ -51,9 +54,12 @@ CREATE TABLE bugs (
     description VARCHAR(256),
     time_of_year_north VARCHAR(50),
     time_of_year_south VARCHAR(50),
-    FOREIGN KEY (time_of_day) REFERENCES time_of_days (id),
-    FOREIGN KEY (location) REFERENCES locations (id),
-    FOREIGN KEY (rarity) REFERENCES rarities (id),
+    time_of_day INT UNSIGNED,
+    location INT UNSIGNED,
+    rarity INT UNSIGNED,
+    FOREIGN KEY (time_of_day) REFERENCES time_of_days(id),
+    FOREIGN KEY (location) REFERENCES locations(id),
+    FOREIGN KEY (rarity) REFERENCES rarities(id),
     price_nooks_cranny INT UNSIGNED,
     price_flick INT UNSIGNED
 );
@@ -67,16 +73,20 @@ CREATE TABLE users (
 
 CREATE TABLE user_fish (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	FOREIGN KEY (user) REFERENCES users (id),
-	FOREIGN KEY (fish) REFERENCES fish (id),
-	favorited BOOLEAN FALSE,
-	catched BOOLEAN FALSE
+    user INT UNSIGNED,
+    fish INT UNSIGNED,
+	FOREIGN KEY (user) REFERENCES users(id),
+	FOREIGN KEY (fish) REFERENCES fish(id),
+	favorited BOOLEAN DEFAULT 0,
+	catched BOOLEAN DEFAULT 0
 );
 
 CREATE TABLE user_bugs (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	FOREIGN KEY (user) REFERENCES users (id),
-	FOREIGN KEY (bug) REFERENCES bugs (id),
-	favorited BOOLEAN FALSE,
-	catched BOOLEAN FALSE
+    user INT UNSIGNED,
+    bug INT UNSIGNED,
+	FOREIGN KEY (user) REFERENCES users(id),
+	FOREIGN KEY (bug) REFERENCES bugs(id),
+	favorited BOOLEAN DEFAULT 0,
+	catched BOOLEAN DEFAULT 0
 );
