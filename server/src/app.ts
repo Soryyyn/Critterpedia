@@ -16,5 +16,6 @@ app.get("/status", (req, res) => {
     });
 });
 
-app.listen(8081);
-console.log("now listening on port 8081...")
+app.listen(8081, () => {
+    console.log("server listening on port 8081...")
+});
