@@ -35,6 +35,7 @@ nav {
   left: 0;
   width: 100%;
   padding: 10px;
+  margin-bottom: 2rem;
 }
 
 ul {
