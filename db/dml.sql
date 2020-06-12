@@ -60,7 +60,7 @@ INSERT INTO rarities (rarity) VALUES
     ("Very Rare (3%)"),
     ("Very Rare (2%)"),
     ("Ultra Rare (1%)"),
-    ("5 per day (-)");
+    ("5 per day");
 
 INSERT INTO time_of_days (start, end) VALUES
     ("04:00:00", "19:00:00"),
@@ -478,4 +478,37 @@ INSERT INTO fish (name, description, time_of_year_north, time_of_year_south, tim
         2,
         2500,
         3750
-    ),
+    );
+
+INSERT INTO bugs VALUES(name, description, time_of_year_north, time_of_year_south, time_of_day, location, rarity, price_nooks_cranny, price_flick)
+    (
+        "Common Butterfly",
+        "I caught a common butterfly! They often flutter by!",
+        "September – June",
+        "March – December",
+        1,
+        6,
+        4,
+        160,
+        240
+    ), (
+        "Yellow Butterfly",
+        "I caught a yellow butterfly! Shouldn't all BUTTERflies be yellow?",
+        "March – June & September – October",
+        "March – April & September – December",
+        1,
+        6,
+        4,
+        160,
+        240
+    ), (
+        "Tiger Butterfly",
+        "I caught a tiger butterfly! I've earned my stripes!",
+        "March – September",
+        "September – March",
+        1,
+        6,
+        6,
+        240,
+        360
+    );
