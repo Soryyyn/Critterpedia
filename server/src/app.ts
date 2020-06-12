@@ -1,9 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const morgan = require("morgan");
+import * as express from "express";
+import * as bodyParser from "body-parser";
+import * as cors from "cors";
+import * as morgan from "morgan";
 
-const { connection } = require("./db");
+import { connection } from "./db";
 
 const app = express();
 

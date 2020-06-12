@@ -11,7 +11,6 @@ export default Vue.extend({
   methods: {
     async getAllFish() {
       const response = await auth.getFish();
-
       console.log(response.data);
     }
   },
