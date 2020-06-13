@@ -20,7 +20,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "tsc && nodemon dist/app.js"
+    "start": "nodemon dist/app.js"
   },
   "keywords": [],
   "author": "",
