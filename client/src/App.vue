@@ -45,6 +45,18 @@ html {
   height: 100%;
   width: 100%;
   background: rgb(255, 239, 225);
-  overflow-x: hidden;
+}
+
+body {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: darken(rgb(255, 239, 225), 30%);
+    border-radius: 20px;
+  }
 }
 </style>

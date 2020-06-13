@@ -30,12 +30,11 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 nav {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   padding: 10px;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 ul {
@@ -53,7 +52,7 @@ ul li {
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 5px 7px 0px darken(rgb(255, 239, 225), 5%);
+  box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
   transition: 0.1s ease-in-out;
   color: rgba(28, 26, 31, 1);
   font-size: 20px;
@@ -65,12 +64,11 @@ ul li {
 
   &:last-child {
     margin-left: auto;
-    margin-right: 20px;
   }
 
   &.router-link-exact-active {
     border: 2px solid darken(rgb(255, 239, 225), 15%);
-    box-shadow: 5px 7px 0px darken(rgb(255, 239, 225), 15%);
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
   }
 
   &:hover {

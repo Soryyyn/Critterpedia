@@ -13,7 +13,7 @@ app.use(bodyParser.json()); // used for parsing json request
 app.use(cors()); // security stuff
 
 app.get("/fish", (req, res) => {
-    connection.query("SELECT * FROM fish", (err, results, fields) => {
+    connection.query("SELECT * FROM view_fish", (err, results, fields) => {
         if (err) throw err;
         res.send(results);
     });
