@@ -1,52 +1,50 @@
 <template>
-  <div id="fish">
-    <h1>All Fish</h1>
+  <div id="Bugs">
+    <h1>
+      All
+      <span>Bugs</span>
+    </h1>
     <ul id="grid">
       <li
-        v-for="fish in this.fishes"
-        v-bind:key="fish.id"
-        v-bind:id="fish.id + '_' + fish.name['name-EUen']"
+        v-for="bug in this.bugs"
+        v-bind:key="bug.id"
+        v-bind:id="bug.id + '_' + bug.name['name-EUen']"
       >
         <div id="picture-and-more">
           <div>
-            <img v-bind:src="fish.icon_uri" v-bind:alt="fish.name['name-EUen']" />
+            <img v-bind:src="bug.icon_uri" v-bind:alt="bug.name['name-EUen']" />
             <div>
-              <p id="fish-name">
-                <b>{{fish.name['name-EUen']}}</b>
+              <p id="bug-name">
+                <b>{{bug.name['name-EUen']}}</b>
               </p>
-              <p id="fish-catch-phrase">"{{fish['catch-phrase']}}"</p>
+              <p id="bug-catch-phrase">"{{bug['catch-phrase']}}"</p>
             </div>
-            <p class="fish-id">#{{fish.id}}</p>
+            <p class="bug-id">#{{bug.id}}</p>
           </div>
         </div>
 
         <div id="info">
           <div>
-            <div v-if="fish.availability.isAllYear == false">
-              <p
-                class="overlay"
-              >North: {{getMonths(fish.availability['month-northern'].split("-")[0], fish.availability['month-northern'].split("-")[1])}}</p>
-              <p
-                class="overlay"
-              >South: {{getMonths(fish.availability['month-southern'].split("-")[0], fish.availability['month-southern'].split("-")[1])}}</p>
+            <div v-if="bug.availability.isAllYear == false">
+              <p class="overlay">North: {{getMonths(bug.availability['month-northern'])}}</p>
+              <p class="overlay">South: {{getMonths(bug.availability['month-southern'])}}</p>
             </div>
             <div v-else>
               <p class="overlay">North: All year</p>
               <p class="overlay">South: All year</p>
             </div>
 
-            <div v-if="fish.availability.isAllDay == false">
-              <p class="overlay">Time: {{fish.availability.time}}</p>
+            <div v-if="bug.availability.isAllDay == false">
+              <p class="overlay">Time: {{bug.availability.time}}</p>
             </div>
             <div v-else>
               <p class="overlay">Time: All day</p>
             </div>
 
-            <p class="overlay">Location: {{fish.availability.location}}</p>
-            <p class="overlay">Rarity: {{fish.availability.rarity}}</p>
-            <p class="overlay">Shadow Size: {{fish.shadow}}</p>
-            <p class="overlay">Nook's Cranny: {{fish.price}} Bells</p>
-            <p class="overlay">C.J: {{fish['price-cj']}} Bells</p>
+            <p class="overlay">Location: {{bug.availability.location}}</p>
+            <p class="overlay">Rarity: {{bug.availability.rarity}}</p>
+            <p class="overlay">Nook's Cranny: {{bug.price}} Bells</p>
+            <p class="overlay">Flick: {{bug['price-flick']}} Bells</p>
           </div>
         </div>
       </li>
@@ -58,33 +56,39 @@
 import Vue from 'vue';
 import * as _ from "lodash";
 import auth from "../services/auth";
+import { log } from 'util';
 
 export default Vue.extend({
-  name: 'Fish',
+  name: 'BugsComponent',
   data() {
     return {
-      fishes: null
+      bugs: null
     }
   },
   methods: {
-    async getAllFish() {
-      const response = await auth.getFish();
+    async getAllBugs() {
+      const response = await auth.getBugs();
       let temp = _.sortBy(response.data, "id", "asc");
-      this.fishes = temp;
+      this.bugs = temp;
     },
-    getMonths(start: number, end: number) {
+    getMonths(range: string) {
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-      return `${months[start]} - ${months[end]}`;
+      let temp = range.split("&");
+      if (temp.length == 1) {
+        return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]}`;
+      } else {
+        return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]} & ${months[parseInt(temp[1].split("-")[0]) - 1]} - ${months[parseInt(temp[1].split("-")[1]) - 1]}`;
+      }
     }
   },
   mounted() {
-    this.getAllFish();
+    this.getAllBugs();
   }
 })
 </script>
 
 <style lang="scss" scoped>
-#fish {
+#Bugs {
   padding: 10px;
   position: relative;
   top: 0;
@@ -96,6 +100,14 @@ export default Vue.extend({
     text-shadow: 3px 3px 0px rgba(28, 26, 31, 0.3);
     text-align: center;
     margin-bottom: 1.5rem;
+
+    span {
+      color: rgb(142, 211, 85);
+      font-family: "Biko Black";
+      text-shadow: 3px 3px 0px darken(rgba(142, 211, 85, 0.3), 30%);
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: darken(rgba(142, 211, 85, 1), 30%);
+    }
   }
 
   #grid {
@@ -129,12 +141,12 @@ export default Vue.extend({
           margin-right: auto;
         }
 
-        .fish-id {
+        .bug-id {
           font-family: "Biko Bold";
           position: absolute;
           top: 5px;
           right: 20px;
-          font-size: 100px;
+          font-size: 150px;
           color: darken(rgba(255, 239, 225, 0.5), 1%);
           z-index: -5;
         }

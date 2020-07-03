@@ -57,6 +57,7 @@ ul li {
   color: rgba(28, 26, 31, 1);
   font-size: 20px;
   font-family: "Biko Bold";
+  user-select: none;
 
   &:not(:first-child):not(:last-child) {
     margin-left: 10px;
