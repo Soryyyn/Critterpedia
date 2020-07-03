@@ -3,8 +3,9 @@ import Vue from 'vue';
 
 // other imports
 import VueRouter, { RouteConfig } from 'vue-router';
-import Home from './views/Home.vue';
-import Fish from './views/Fish.vue';
+import HomeView from './views/HomeView.vue';
+import FishView from './views/FishView.vue';
+import BugsView from './views/BugsView.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -14,16 +15,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: HomeView
   },
   {
     path: '/fish',
     name: 'Fish',
-    component: Fish
+    component: FishView
   },
   {
     path: '/bugs',
     name: 'Bugs',
+    component: BugsView
   },
   {
     // add beforeenter here to check if user is logged in

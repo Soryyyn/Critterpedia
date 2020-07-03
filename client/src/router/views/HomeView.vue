@@ -20,7 +20,7 @@
 import NavComponent from '@/components/NavComponent.vue'
 
 export default {
-  name: 'Home',
+  name: 'HomeView',
   components: {
     NavComponent
   }

@@ -23,6 +23,16 @@ app.get("/fish", (req, res) => {
         });
 });
 
+app.get("/bugs", (req, res) => {
+    axios.get("http://acnhapi.com/v1/bugs")
+        .then((response: any) => {
+            res.send(response.data);
+        })
+        .catch((error: Error) => {
+            throw error;
+        });
+});
+
 app.listen(8081, () => {
     console.log("server listening on port 8081...")
 });
