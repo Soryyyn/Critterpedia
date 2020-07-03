@@ -6,7 +6,7 @@
     </h1>
     <ul id="grid">
       <li
-        v-for="fish in this.fishes"
+        v-for="fish in fishes"
         v-bind:key="fish.id"
         v-bind:id="fish.id + '_' + fish.name['name-EUen']"
       >
@@ -66,13 +66,15 @@ export default Vue.extend({
   name: 'FishComponent',
   data() {
     return {
-      fishes: null
+      fishes: []
     }
   },
   methods: {
     async getAllFish() {
       const response = await auth.getFish();
       let temp = _.sortBy(response.data, "id", "asc");
+
+      // @ts-ignore
       this.fishes = temp;
     },
     getMonths(start: number, end: number) {
