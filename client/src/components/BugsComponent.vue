@@ -56,19 +56,20 @@
 import Vue from 'vue';
 import * as _ from "lodash";
 import auth from "../services/auth";
-import { log } from 'util';
 
 export default Vue.extend({
   name: 'BugsComponent',
   data() {
     return {
-      bugs: null
+      bugs: []
     }
   },
   methods: {
     async getAllBugs() {
       const response = await auth.getBugs();
       let temp = _.sortBy(response.data, "id", "asc");
+
+      // @ts-ignore
       this.bugs = temp;
     },
     getMonths(range: string) {
