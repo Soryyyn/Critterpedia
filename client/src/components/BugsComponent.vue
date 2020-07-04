@@ -1,9 +1,6 @@
 <template>
   <div id="Bugs">
-    <h1>
-      All
-      <span>Bugs</span>
-    </h1>
+    <h1>Bugs</h1>
     <ul id="grid">
       <li
         v-for="bug in this.bugs"
@@ -76,7 +73,11 @@ export default Vue.extend({
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       let temp = range.split("&");
       if (temp.length == 1) {
-        return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]}`;
+        if (temp[0].split("-")[1] != undefined) {
+          return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]}`;
+        } else {
+          return `${months[parseInt(temp[0].split("-")[0]) - 1]}`
+        }
       } else {
         return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]} & ${months[parseInt(temp[1].split("-")[0]) - 1]} - ${months[parseInt(temp[1].split("-")[1]) - 1]}`;
       }
@@ -95,20 +96,14 @@ export default Vue.extend({
   top: 0;
 
   h1 {
-    color: rgba(28, 26, 31, 1);
-    font-family: "Biko Bold";
     font-size: 64px;
-    text-shadow: 3px 3px 0px rgba(28, 26, 31, 0.3);
     text-align: center;
     margin-bottom: 1.5rem;
-
-    span {
-      color: rgb(142, 211, 85);
-      font-family: "Biko Black";
-      text-shadow: 3px 3px 0px darken(rgba(142, 211, 85, 0.3), 30%);
-      -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: darken(rgba(142, 211, 85, 1), 30%);
-    }
+    color: rgb(142, 211, 85);
+    font-family: "Biko Black";
+    text-shadow: 3px 3px 0px darken(rgba(142, 211, 85, 0.3), 30%);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: darken(rgba(142, 211, 85, 1), 30%);
   }
 
   #grid {
@@ -145,15 +140,15 @@ export default Vue.extend({
         .bug-id {
           font-family: "Biko Bold";
           position: absolute;
-          top: 5px;
-          right: 20px;
-          font-size: 150px;
+          top: -28px;
+          right: 5px;
+          font-size: 200px;
           color: darken(rgba(255, 239, 225, 0.5), 1%);
           z-index: -5;
         }
 
         div {
-          width: 80%;
+          width: 90%;
           margin-left: auto;
           margin-right: auto;
           font-family: "Biko Regular";

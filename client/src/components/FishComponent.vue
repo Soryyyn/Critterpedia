@@ -1,9 +1,7 @@
 <template>
   <div id="fish">
-    <h1>
-      All
-      <span>Fish</span>
-    </h1>
+    <h1>Fish</h1>
+    <!-- <button>All Fish</button> -->
     <ul id="grid">
       <li
         v-for="fish in fishes"
@@ -95,20 +93,14 @@ export default Vue.extend({
   top: 0;
 
   h1 {
-    color: rgba(28, 26, 31, 1);
-    font-family: "Biko Bold";
     font-size: 64px;
-    text-shadow: 3px 3px 0px rgba(28, 26, 31, 0.3);
     text-align: center;
     margin-bottom: 1.5rem;
-
-    span {
-      color: rgb(85, 175, 211);
-      font-family: "Biko Black";
-      text-shadow: 3px 3px 0px darken(rgba(85, 175, 211, 0.3), 30%);
-      -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: darken(rgba(85, 175, 211, 1), 30%);
-    }
+    color: rgb(85, 175, 211);
+    font-family: "Biko Black";
+    text-shadow: 3px 3px 0px darken(rgba(85, 175, 211, 0.3), 30%);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: darken(rgba(85, 175, 211, 1), 30%);
   }
 
   #grid {
@@ -145,15 +137,15 @@ export default Vue.extend({
         .fish-id {
           font-family: "Biko Bold";
           position: absolute;
-          top: 5px;
-          right: 20px;
-          font-size: 150px;
+          top: -28px;
+          right: 5px;
+          font-size: 200px;
           color: darken(rgba(255, 239, 225, 0.5), 1%);
           z-index: -5;
         }
 
         div {
-          width: 80%;
+          width: 90%;
           margin-left: auto;
           margin-right: auto;
           font-family: "Biko Regular";
