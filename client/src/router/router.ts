@@ -6,6 +6,7 @@ import VueRouter, { RouteConfig } from 'vue-router';
 import HomeComponent from '@/components/HomeComponent.vue';
 import FishComponent from '@/components/FishComponent.vue';
 import BugsComponent from '@/components/BugsComponent.vue';
+import SignupComponent from '@/components/SignupComponent.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -29,8 +30,9 @@ const routes: Array<RouteConfig> = [
   },
   {
     // add beforeenter here to check if user is logged in
-    path: '/user',
-    name: 'User',
+    path: '/signup',
+    name: 'Signup',
+    component: SignupComponent
   },
   {
     // default

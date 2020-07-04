@@ -14,7 +14,7 @@
         Bugs
       </router-link>
       <!-- add userid as param -->
-      <router-link tag="li" :to="{ name: 'User'}">
+      <router-link tag="li" :to="{ name: 'Signup'}">
         <i class="fas fa-user"></i>
       </router-link>
     </ul>
