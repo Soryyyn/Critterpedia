@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <img id="logo" src="../../assets/critterpedia_icon.png" alt="icon" />
+    <img id="logo" src="@/assets/critterpedia_icon.png" alt="icon" />
 
     <h1>
       Welcome to the
@@ -16,15 +16,11 @@
   </div>
 </template>
 
-<script>
-import NavComponent from '@/components/NavComponent.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    NavComponent
-  }
-}
+<script lang="ts">
+import Vue from 'vue'
+export default Vue.extend({
+  name: "HomeComponent"
+})
 </script>
 
 <style scoped lang="scss">

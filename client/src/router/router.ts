@@ -3,9 +3,9 @@ import Vue from 'vue';
 
 // other imports
 import VueRouter, { RouteConfig } from 'vue-router';
-import HomeView from './views/HomeView.vue';
-import FishView from './views/FishView.vue';
-import BugsView from './views/BugsView.vue';
+import HomeComponent from '@/components/HomeComponent.vue';
+import FishComponent from '@/components/FishComponent.vue';
+import BugsComponent from '@/components/BugsComponent.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -15,17 +15,17 @@ const routes: Array<RouteConfig> = [
   {
     path: '/home',
     name: 'Home',
-    component: HomeView
+    component: HomeComponent
   },
   {
     path: '/fish',
     name: 'Fish',
-    component: FishView
+    component: FishComponent
   },
   {
     path: '/bugs',
     name: 'Bugs',
-    component: BugsView
+    component: BugsComponent
   },
   {
     // add beforeenter here to check if user is logged in
