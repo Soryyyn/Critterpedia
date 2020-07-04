@@ -56,6 +56,9 @@
 </template>
 
 <script lang="ts">
+
+// TODO: add fishcard & bugcard for less copy code
+
 import Vue from 'vue';
 import * as _ from "lodash";
 import auth from "../services/auth";
