@@ -1,16 +1,29 @@
 <template>
   <div id="signup">
     <h1>
-      <span>Sign up</span> for a account
+      <span>Sign up</span> for an account
     </h1>
     <div id="wrapper">
-      <form>
+      <form @submit.prevent="signupUser()">
         <label for="nickname">Nickname</label>
-        <input type="text" name="nickname" id="nickname" />
+        <input type="text" name="nickname" id="nickname" v-model="nickname" placeholder="Steve" />
         <label for="email">Email</label>
-        <input type="email" name="email" id="email" />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          v-model="email"
+          placeholder="steve.bobs@gmail.com"
+        />
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" />
+        <input
+          type="password"
+          name="password"
+          id="password"
+          v-model="password"
+          placeholder="tr33-Branch"
+        />
+        <button id="signup_button">Sign up</button>
       </form>
     </div>
   </div>
@@ -18,8 +31,34 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import * as bcrypt from "bcryptjs";
+import auth from "../services/auth";
+
 export default Vue.extend({
-  name: "SignupComponent"
+  name: "SignupComponent",
+  data() {
+    return {
+      nickname: "",
+      email: "",
+      password: ""
+    }
+  },
+  methods: {
+    async signupUser() {
+      let salt = bcrypt.genSaltSync();
+
+      let newUser = {
+        nickname: this.nickname,
+        email: this.email,
+        password: bcrypt.hashSync(this.password, salt)
+      }
+
+      const response = await auth.postSignup(newUser);
+
+      console.log(response.data);
+
+    }
+  }
 })
 </script>
 
@@ -79,13 +118,45 @@ h1 {
       padding: 10px;
       font-size: 22px;
       margin-top: 5px;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
       font-family: "Biko Regular";
-
       border: 2px solid darken(rgb(255, 239, 225), 5%);
       border-radius: 10px;
       box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
       background: lighten(rgb(255, 239, 225), 5%);
+      transition: 0.2s ease-in-out;
+
+      &:focus {
+        border: 2px solid darken(rgb(255, 239, 225), 15%);
+        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+        outline: none;
+        transition: 0.2s ease-in-out;
+      }
+    }
+
+    #signup_button {
+      padding: 10px 30px;
+      font-size: 22px;
+      font-family: "Biko Bold";
+      border: 2px solid darken(rgb(255, 239, 225), 5%);
+      border-radius: 10px;
+      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+      background: lighten(rgb(255, 239, 225), 5%);
+      transition: 0.2s ease-in-out;
+      display: block;
+      margin: 0 auto;
+
+      &:hover {
+        transition: 0.2s ease-in-out;
+        transform: scale(1.1);
+      }
+
+      &:focus {
+        border: 2px solid darken(rgb(255, 239, 225), 15%);
+        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+        outline: none;
+        transition: 0.2s;
+      }
     }
   }
 }

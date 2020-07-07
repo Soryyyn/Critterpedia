@@ -33,6 +33,35 @@ app.get("/bugs", (req, res) => {
         });
 });
 
+app.post("/signup", (req, res) => {
+    let user = req.body;
+
+    // test if user with same nickname or email exists in users table
+    // if there is send error to client
+    // else create new entry for user in table
+    try {
+        connection.query(`SELECT * FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
+            if (error) throw error;
+
+            if (results.length < 1) {
+                connection.query(`INSERT INTO users (nickname, email, password) VALUES ("${user.nickname}", "${user.email}", "${user.password}")`, (error: Error) => {
+                    if (error) {
+                        throw error
+                    }
+
+                    res.send(true);
+                })
+            } else {
+                // TODO: better error sending
+                res.send(false);
+            }
+
+        });
+    } catch (error) {
+        throw error;
+    }
+});
+
 app.listen(8081, () => {
     console.log("server listening on port 8081...")
 });

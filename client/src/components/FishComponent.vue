@@ -110,6 +110,7 @@ export default Vue.extend({
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
+    margin-bottom: 1.5rem;
 
     li {
       list-style: none;
