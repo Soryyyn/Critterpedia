@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS user_bugs;
 
 CREATE TABLE users (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50),
-    surname VARCHAR(50),
+    nickname VARCHAR(50),
+    email VARCHAR(50),
     password VARCHAR(256)
 );
 
