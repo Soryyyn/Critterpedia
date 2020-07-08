@@ -6,6 +6,11 @@ export default {
         return api().get("fish");
     },
 
+    // get fish from user_fish table
+    getUserFish(userid: any) {
+        return api().get(`fish/${userid}`);
+    },
+
     // get bugs from online api: http://acnhapi.com
     getBugs() {
         return api().get("bugs");

@@ -12,7 +12,8 @@
     "bcryptjs": "^2.4.3",
     "lodash": "^4.17.15",
     "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vue-session": "^1.0.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

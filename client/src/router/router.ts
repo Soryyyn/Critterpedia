@@ -16,23 +16,35 @@ const routes: Array<RouteConfig> = [
   {
     path: '/home',
     name: 'Home',
-    component: HomeComponent
+    component: HomeComponent,
+    meta: {
+      title: "Home | Critterpedia"
+    }
   },
   {
     path: '/fish',
     name: 'Fish',
-    component: FishComponent
+    component: FishComponent,
+    meta: {
+      title: "Fish | Critterpedia"
+    }
   },
   {
     path: '/bugs',
     name: 'Bugs',
-    component: BugsComponent
+    component: BugsComponent,
+    meta: {
+      title: "Bugs | Critterpedia"
+    }
   },
   {
     // add beforeenter here to check if user is logged in
     path: '/signup',
     name: 'Signup',
-    component: SignupComponent
+    component: SignupComponent,
+    meta: {
+      title: "Signup | Critterpedia"
+    }
   },
   {
     // default

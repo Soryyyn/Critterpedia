@@ -4,6 +4,9 @@ import App from './App.vue';
 
 // other imports
 import router from './router/router';
+const VueSession = require('vue-session');
+
+Vue.use(VueSession);
 
 // hide console msg
 Vue.config.productionTip = false;
@@ -13,3 +16,12 @@ new Vue({
   router,
   render: h => h(App)
 }).$mount('#app');
+
+// if user leaves page destroy session
+window.addEventListener("beforeunload", () => {
+  // @ts-ignore
+  if (this.$session.exists()) {
+    // @ts-ignore
+    this.$session.destroy();
+  }
+}, false);

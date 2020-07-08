@@ -54,8 +54,15 @@ export default Vue.extend({
       }
 
       const response = await auth.postSignup(newUser);
-
-      console.log(response.data);
+      if (response.data.userid != undefined) {
+        // start session and save nickname of user
+        // move user to previous route (fish, bugs, etc.)
+        this.$session.start();
+        this.$session.set("userid", response.data.userid);
+        this.$router.push({ name: 'Home' })
+      } else {
+        console.log(response.data);
+      }
 
     }
   }

@@ -23,6 +23,17 @@ app.get("/fish", (req, res) => {
         });
 });
 
+app.get("/fish/:userid", (req, res) => {
+    try {
+        connection.query(`SELECT * FROM user_fish WHERE user = "${req.params.userid}"`, (error: Error, results: any) => {
+            if (error) throw error;
+            res.send(Object.values(JSON.parse(JSON.stringify(results))));
+        });
+    } catch (error) {
+        throw error;
+    }
+});
+
 app.get("/bugs", (req, res) => {
     axios.get("http://acnhapi.com/v1/bugs")
         .then((response: any) => {
@@ -39,6 +50,7 @@ app.post("/signup", (req, res) => {
     // test if user with same nickname or email exists in users table
     // if there is send error to client
     // else create new entry for user in table
+    // and send userid to client for better management
     try {
         connection.query(`SELECT * FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
             if (error) throw error;
@@ -49,11 +61,14 @@ app.post("/signup", (req, res) => {
                         throw error
                     }
 
-                    res.send(true);
+                    connection.query(`SELECT id FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
+                        if (error) throw error;
+                        res.send({ userid: results[0].id });
+                    });
                 })
             } else {
                 // TODO: better error sending
-                res.send(false);
+                res.send("user with same nickname or email is already in use");
             }
 
         });
