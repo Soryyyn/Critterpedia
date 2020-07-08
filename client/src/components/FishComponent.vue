@@ -29,6 +29,17 @@
               <i class="fas fa-bookmark"></i>
             </a>
           </div>
+
+          <div v-if="seeIfAvailable(fish.id) != true">
+            <a id="unavailable">
+              <i class="far fa-clock"></i>
+            </a>
+          </div>
+          <div v-else>
+            <a id="available">
+              <i class="fas fa-clock"></i>
+            </a>
+          </div>
         </div>
 
         <div id="picture-and-more">
@@ -83,6 +94,7 @@
 import Vue from 'vue';
 import * as _ from "lodash";
 import auth from "../services/auth";
+import * as moment from "moment";
 
 export default Vue.extend({
   name: 'FishComponent',
@@ -91,6 +103,7 @@ export default Vue.extend({
     return {
       fishes: [],
       favoritesAndCatched: [],
+      available: [],
       userId: null,
       loggedIn: false
     }
@@ -137,7 +150,6 @@ export default Vue.extend({
       }
     },
 
-    // TODO: add info card (vue-notification)
     // catch the clicked icon of fish
     markAsCaught(fishid) {
       let favorited;
@@ -268,19 +280,51 @@ export default Vue.extend({
 
         auth.postChangeToUserFish(changes);
       }
+    },
+
+    // check if current fish is available and return to show
+    // as clock icon
+    seeIfAvailable(fishid) {
+      for (let i = 0; i < this.available.length; i++) {
+        if (this.available[i] == fishid) {
+          return true;
+        }
+      }
     }
 
   },
 
   // created gets exec before mounted
   // (see vue lifecycle)
-  created() {
-    this.getAllFish();
+  async created() {
+    await this.getAllFish();
 
     if (this.$session.exists()) {
       this.loggedIn = true;
       this.userId = this.$session.get("userid");
     }
+
+    // check every minute if fish is currently catchable
+    setInterval(() => {
+      this.available = [];
+      let currentHour = moment().format("H");
+
+      for (let i = 0; i < this.fishes.length; i++) {
+        if (!this.fishes[i].availability.isAllDay) {
+          for (let j = 0; j < this.fishes[i].availability["time-array"].length; j++) {
+            if (this.fishes[i].availability["time-array"][j] == currentHour) {
+              // if fish is currently available add array id to list
+              // to check in template
+              this.available.push(this.fishes[i].id);
+              break;
+            }
+          }
+        } else {
+          // add it to available list if it is available all day
+          this.available.push(this.fishes[i].id);
+        }
+      }
+    }, 1000);
   },
 
   // mounted gets exec after created
@@ -371,6 +415,22 @@ export default Vue.extend({
           transform: scale(1.2);
           transition: 0.1s ease-in-out;
           text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+        }
+      }
+
+      #unavailable,
+      #available {
+        position: absolute;
+        top: 72px;
+        left: 17px;
+        font-size: 20px;
+        color: rgb(85, 175, 211);
+        transition: 0.1 ease-in-out;
+
+        &:active {
+          transform: scale(1.2);
+          transition: 0.1s ease-in-out;
+          text-shadow: 2px 4px 5px darken(rgba(85, 175, 211, 0.2), 50%);
         }
       }
 
