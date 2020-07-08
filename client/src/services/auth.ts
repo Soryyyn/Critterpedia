@@ -36,5 +36,11 @@ export default {
     // create new user
     postSignup(data: any) {
         return api().post("signup", data);
+    },
+
+    // post user data to backend to check password
+    // and more in db
+    postSignin(data: any) {
+        return api().post("signin", data);
     }
 }

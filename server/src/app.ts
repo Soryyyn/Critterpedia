@@ -120,7 +120,7 @@ app.post("/signup", (req, res) => {
     let user = req.body;
 
     // test if user with same nickname or email exists in users table
-    // if there is send error to client
+    // if there isnt send error to client
     // else create new entry for user in table
     // and send userid to client for better management
     try {
@@ -139,14 +139,32 @@ app.post("/signup", (req, res) => {
                     });
                 })
             } else {
-                // TODO: better error sending
-                res.send("user with same nickname or email is already in use");
+                res.send("User with same nickname or email is already in use");
             }
 
         });
     } catch (error) {
         throw error;
     }
+});
+
+// signin user
+app.post("/signin", (req, res) => {
+    let user = req.body;
+
+    // test if user with same email exists in users table
+    // if there isnt send error to client
+    // else return userid to signin
+    connection.query(`SELECT * FROM users WHERE email = "${user.email}"`, (error: Error, results: any) => {
+        if (error) throw error;
+
+        if (results.length < 1) {
+            res.send("No user with this email available")
+        } else {
+            if (error) throw error;
+            res.send({ hash: results[0].password, userid: results[0].id });
+        }
+    });
 });
 
 app.listen(8081, () => {
