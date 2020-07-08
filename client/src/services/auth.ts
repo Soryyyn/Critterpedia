@@ -21,6 +21,16 @@ export default {
         return api().get("bugs");
     },
 
+    // get bugs from user_fish table
+    getUserBugs(userid: any) {
+        return api().get(`bugs/${userid}`);
+    },
+
+    // make a change to user_bugs table
+    postChangeToUserBugs(data: any) {
+        return api().post("bugs", data);
+    },
+
     // post the user data to backend to check db
     // if no user with same nickname or email exists
     // create new user

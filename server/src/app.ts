@@ -36,6 +36,7 @@ app.get("/fish/:userid", (req, res) => {
     }
 });
 
+// update or insert change from fishes page
 app.post("/fish", (req, res) => {
     let changes = req.body;
 
@@ -72,6 +73,46 @@ app.get("/bugs", (req, res) => {
         .catch((error: Error) => {
             throw error;
         });
+});
+
+// get saved bugs from user_bugs table
+app.get("/bugs/:userid", (req, res) => {
+    try {
+        connection.query(`SELECT * FROM user_bugs WHERE user = "${req.params.userid}"`, (error: Error, results: any) => {
+            if (error) throw error;
+            res.send(Object.values(JSON.parse(JSON.stringify(results))));
+        });
+    } catch (error) {
+        throw error;
+    }
+});
+
+// update or insert change from bugs page
+app.post("/bugs", (req, res) => {
+    let changes = req.body;
+
+    try {
+        connection.query(`SELECT * FROM user_bugs WHERE user = "${changes.userid}" AND bug = "${changes.bug}"`, (error: Error, results: any) => {
+            if (error) throw error;
+
+            // if there is no result for the changed bugs for the user
+            // insert new entry into table
+            // else update the entry
+            if (results.length > 0) {
+                connection.query(`UPDATE user_bugs SET catched = ${changes.catched}, favorited = ${changes.favorited} WHERE user = "${changes.userid}" AND bug = "${changes.bug}"`, (error: Error, results: any) => {
+                    if (error) throw error;
+                });
+            } else {
+                connection.query(`INSERT INTO user_bugs (user, bug, favorited, catched) VALUES (${changes.userid}, ${changes.bug}, ${changes.favorited}, ${changes.catched})`, (error: Error, results: any) => {
+                    if (error) throw error;
+                });
+            }
+        });
+
+        res.sendStatus(200);
+    } catch (error) {
+        throw error;
+    }
 });
 
 // signup user in table
