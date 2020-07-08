@@ -7,6 +7,30 @@
         v-bind:key="bug.id"
         v-bind:id="bug.id + '_' + bug.name['name-EUen']"
       >
+        <div v-if="loggedIn == true">
+          <div v-if="getMarkedAsFavorite(bug.id) != true">
+            <a id="unfavorited" v-on:click="markAsFavorited(bug.id)">
+              <i class="far fa-star"></i>
+            </a>
+          </div>
+          <div v-else>
+            <a id="favorited" v-on:click="markAsUnfavorited(bug.id)">
+              <i class="fas fa-star"></i>
+            </a>
+          </div>
+
+          <div v-if="getMarkedAsCaught(bug.id) != true">
+            <a id="uncaught" v-on:click="markAsCaught(bug.id)">
+              <i class="far fa-bookmark"></i>
+            </a>
+          </div>
+          <div v-else>
+            <a id="caught" v-on:click="markAsUncaught(bug.id)">
+              <i class="fas fa-bookmark"></i>
+            </a>
+          </div>
+        </div>
+
         <div id="picture-and-more">
           <div>
             <img v-bind:src="bug.icon_uri" v-bind:alt="bug.name['name-EUen']" />
@@ -58,10 +82,14 @@ export default Vue.extend({
   name: 'BugsComponent',
   data() {
     return {
-      bugs: []
+      bugs: [],
+      favoritesAndCatched: [],
+      userId: null,
+      loggedIn: false
     }
   },
   methods: {
+
     async getAllBugs() {
       const response = await auth.getBugs();
       let temp = _.sortBy(response.data, "id", "asc");
@@ -69,6 +97,7 @@ export default Vue.extend({
       // @ts-ignore
       this.bugs = temp;
     },
+
     getMonths(range: string) {
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       let temp = range.split("&");
@@ -81,10 +110,162 @@ export default Vue.extend({
       } else {
         return `${months[parseInt(temp[0].split("-")[0]) - 1]} - ${months[parseInt(temp[0].split("-")[1]) - 1]} & ${months[parseInt(temp[1].split("-")[0]) - 1]} - ${months[parseInt(temp[1].split("-")[1]) - 1]}`;
       }
+    },
+
+    // check if the wanted fish is favorited
+    // in the db by the user
+    getMarkedAsFavorite(bugid: any) {
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+        if (this.bugs[bugid - 1].id == this.favoritesAndCatched[i].bug) {
+          if (this.favoritesAndCatched[i].favorited === 1) {
+            return true;
+          }
+        }
+      }
+    },
+
+    // check if the wanted fish is caught
+    // in the db by the user
+    getMarkedAsCaught(bugid: any) {
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+        if (this.bugs[bugid - 1].id == this.favoritesAndCatched[i].bug) {
+          if (this.favoritesAndCatched[i].catched === 1) {
+            return true;
+          }
+        }
+      }
+    },
+
+    // TODO: add info card (vue-notification)
+    // catch the clicked icon of fish
+    markAsCaught(bugid) {
+      let favorited;
+      if (this.getMarkedAsFavorite(bugid) === true) {
+        favorited = 1;
+      } else {
+        favorited = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        bug: bugid,
+        favorited: favorited,
+        catched: 1
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // uncatch the clicked icon of fish
+    markAsUncaught(bugid) {
+      let favorited;
+      if (this.getMarkedAsFavorite(bugid) === true) {
+        favorited = 1;
+      } else {
+        favorited = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        bug: bugid,
+        favorited: favorited,
+        catched: 0
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // favorite the clicked icon of fish
+    markAsFavorited(bugid) {
+      let caught;
+      if (this.getMarkedAsCaught(bugid) === true) {
+        caught = 1;
+      } else {
+        caught = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        bug: bugid,
+        favorited: 1,
+        catched: caught
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // unfavorite the clicked icon of fish
+    markAsUnfavorited(bugid) {
+      let caught;
+      if (this.getMarkedAsCaught(bugid) === true) {
+        caught = 1;
+      } else {
+        caught = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        bug: bugid,
+        favorited: 0,
+        catched: caught
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // first change saves to current session and then
+    // save changes to db
+    async saveChanges(changes) {
+      let toChange = null;
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+
+        // if there is already an entry in local list or db
+        if (this.favoritesAndCatched[i].user == this.userId && this.favoritesAndCatched[i].bug == changes.bug) {
+          toChange = i;
+        }
+
+      }
+
+      if (toChange != null) {
+        this.favoritesAndCatched[toChange].user = changes.userid;
+        this.favoritesAndCatched[toChange].bug = changes.bug;
+        this.favoritesAndCatched[toChange].catched = changes.catched;
+        this.favoritesAndCatched[toChange].favorited = changes.favorited;
+
+        auth.postChangeToUserBugs(changes);
+      } else {
+        this.favoritesAndCatched.push({
+          user: changes.userid,
+          bug: changes.bug,
+          catched: changes.catched,
+          favorited: changes.favorited
+        });
+
+        auth.postChangeToUserBugs(changes);
+      }
+    }
+
+  },
+
+  // created gets exec before mounted
+  // (see vue lifecycle)
+  created() {
+    this.getAllBugs();
+
+    if (this.$session.exists()) {
+      this.loggedIn = true;
+      this.userId = this.$session.get("userid");
     }
   },
-  mounted() {
-    this.getAllBugs();
+
+  // mounted gets exec after created
+  // (see vue lifecycle)
+  async mounted() {
+    const response = await auth.getUserBugs(this.userId);
+
+    // if the user has saved favorites or catched
+    // then load them here into seperate data
+    this.favoritesAndCatched = response.data;
   }
 })
 </script>
@@ -125,12 +306,55 @@ export default Vue.extend({
 
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
       grid-gap: 15px;
+
+      #unfavorited,
+      #favorited {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        color: rgb(255, 205, 67);
+        transition: 0.1 ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          transform: scale(1.2);
+          transition: 0.1s ease-in-out;
+          text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
+        }
+      }
+
+      #uncaught,
+      #caught {
+        position: absolute;
+        top: 45px;
+        left: 19px;
+        font-size: 20px;
+        color: rgb(142, 211, 85);
+        transition: 0.1 ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          transform: scale(1.2);
+          transition: 0.1s ease-in-out;
+          text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+        }
+      }
 
       #picture-and-more {
         display: flex;
         justify-content: center;
         align-items: center;
+        grid-column: 1;
+        grid-row: 1;
 
         img {
           display: block;
@@ -175,6 +399,8 @@ export default Vue.extend({
         display: flex;
         flex-direction: column;
         justify-content: center;
+        grid-column: 2;
+        grid-row: 1;
 
         p {
           font-family: "Biko Regular";
