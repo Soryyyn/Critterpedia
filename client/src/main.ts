@@ -5,8 +5,10 @@ import App from './App.vue';
 // other imports
 import router from './router/router';
 const VueSession = require('vue-session');
+import Notifications from 'vue-notification';
 
 Vue.use(VueSession);
+Vue.use(Notifications)
 
 // hide console msg
 Vue.config.productionTip = false;

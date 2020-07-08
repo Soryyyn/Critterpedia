@@ -155,6 +155,12 @@ export default Vue.extend({
       }
 
       this.saveChanges(newChanges);
+      this.$notify({
+        type: "catching",
+        title: 'Catched!',
+        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> has been caught!`,
+        duration: 2000
+      });
     },
 
     // uncatch the clicked icon of fish
@@ -174,6 +180,12 @@ export default Vue.extend({
       }
 
       this.saveChanges(newChanges);
+      this.$notify({
+        type: "catching",
+        title: 'Not catched anymore!',
+        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> is catched anymore!`,
+        duration: 2000
+      });
     },
 
     // favorite the clicked icon of fish
@@ -193,6 +205,12 @@ export default Vue.extend({
       }
 
       this.saveChanges(newChanges);
+      this.$notify({
+        type: "favorite",
+        title: 'Favorited!',
+        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> has been favorited!`,
+        duration: 2000
+      });
     },
 
     // unfavorite the clicked icon of fish
@@ -212,6 +230,12 @@ export default Vue.extend({
       }
 
       this.saveChanges(newChanges);
+      this.$notify({
+        type: "favorite",
+        title: 'Not favorited anymore!',
+        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> is not favorited anymore!`,
+        duration: 2000
+      });
     },
 
     // first change saves to current session and then
