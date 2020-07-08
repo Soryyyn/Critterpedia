@@ -11,6 +11,11 @@ export default {
         return api().get(`fish/${userid}`);
     },
 
+    // make a change to user_fish table
+    postChangeToUserFish(data: any) {
+        return api().post("fish", data);
+    },
+
     // get bugs from online api: http://acnhapi.com
     getBugs() {
         return api().get("bugs");

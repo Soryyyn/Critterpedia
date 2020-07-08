@@ -13,6 +13,7 @@ app.use(morgan("combined")); // better logging
 app.use(bodyParser.json()); // used for parsing json request
 app.use(cors()); // security stuff
 
+// get all fish from online api
 app.get("/fish", (req, res) => {
     axios.get("http://acnhapi.com/v1/fish")
         .then((response: any) => {
@@ -23,6 +24,7 @@ app.get("/fish", (req, res) => {
         });
 });
 
+// get saved fish from user_fish table
 app.get("/fish/:userid", (req, res) => {
     try {
         connection.query(`SELECT * FROM user_fish WHERE user = "${req.params.userid}"`, (error: Error, results: any) => {
@@ -34,6 +36,34 @@ app.get("/fish/:userid", (req, res) => {
     }
 });
 
+app.post("/fish", (req, res) => {
+    let changes = req.body;
+
+    try {
+        connection.query(`SELECT * FROM user_fish WHERE user = "${changes.userid}" AND fish = "${changes.fish}"`, (error: Error, results: any) => {
+            if (error) throw error;
+
+            // if there is no result for the changed fish for the user
+            // insert new entry into table
+            // else update the entry
+            if (results.length > 0) {
+                connection.query(`UPDATE user_fish SET catched = ${changes.catched}, favorited = ${changes.favorited} WHERE user = "${changes.userid}" AND fish = "${changes.fish}"`, (error: Error, results: any) => {
+                    if (error) throw error;
+                });
+            } else {
+                connection.query(`INSERT INTO user_fish (user, fish, favorited, catched) VALUES (${changes.userid}, ${changes.fish}, ${changes.favorited}, ${changes.catched})`, (error: Error, results: any) => {
+                    if (error) throw error;
+                });
+            }
+        });
+
+        res.sendStatus(200);
+    } catch (error) {
+        throw error;
+    }
+});
+
+// get all bugs from api
 app.get("/bugs", (req, res) => {
     axios.get("http://acnhapi.com/v1/bugs")
         .then((response: any) => {
@@ -44,6 +74,7 @@ app.get("/bugs", (req, res) => {
         });
 });
 
+// signup user in table
 app.post("/signup", (req, res) => {
     let user = req.body;
 
