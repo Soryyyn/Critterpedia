@@ -13,7 +13,15 @@ export default Vue.extend({
   name: 'app',
   components: {
     'Navigation': NavComponent
-  }
+  },
+  watch: {
+    '$route': {
+      handler: (to, from) => {
+        document.title = to.meta.title || 'Critterpedia'
+      },
+      immediate: true
+    }
+  },
 })
 </script>
 

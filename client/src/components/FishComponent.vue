@@ -1,13 +1,36 @@
 <template>
   <div id="fish">
     <h1>Fish</h1>
-    <!-- <button>All Fish</button> -->
     <ul id="grid">
       <li
         v-for="fish in fishes"
         v-bind:key="fish.id"
         v-bind:id="fish.id + '_' + fish.name['name-EUen']"
       >
+        <div v-if="loggedIn == true">
+          <div v-if="getMarkedAsFavorite(fish.id) != true">
+            <a id="unfavorited">
+              <i class="far fa-star"></i>
+            </a>
+          </div>
+          <div v-else>
+            <a id="favorited">
+              <i class="fas fa-star"></i>
+            </a>
+          </div>
+
+          <div v-if="getMarkedAsCaught(fish.id) != true">
+            <a id="uncaught">
+              <i class="far fa-bookmark"></i>
+            </a>
+          </div>
+          <div v-else>
+            <a id="caught">
+              <i class="fas fa-bookmark"></i>
+            </a>
+          </div>
+        </div>
+
         <div id="picture-and-more">
           <div>
             <img v-bind:src="fish.icon_uri" v-bind:alt="fish.name['name-EUen']" />
@@ -65,12 +88,19 @@ import auth from "../services/auth";
 
 export default Vue.extend({
   name: 'FishComponent',
+
   data() {
     return {
-      fishes: []
+      fishes: [],
+      favoritesAndCatched: [],
+      userId: null,
+      loggedIn: false
     }
   },
+
   methods: {
+
+    // get all fish from api
     async getAllFish() {
       const response = await auth.getFish();
       let temp = _.sortBy(response.data, "id", "asc");
@@ -78,13 +108,58 @@ export default Vue.extend({
       // @ts-ignore
       this.fishes = temp;
     },
+
+    // convert month to readably names
     getMonths(start: number, end: number) {
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       return `${months[start]} - ${months[end]}`;
+    },
+
+    // check if the wanted fish is favorited
+    // in the db by the user
+    getMarkedAsFavorite(fishid: any) {
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+        if (this.fishes[fishid - 1].id == this.favoritesAndCatched[i].fish) {
+          if (this.favoritesAndCatched[i].favorited === 1) {
+            return true;
+          }
+        }
+      }
+    },
+
+    // check if the wanted fish is caught
+    // in the db by the user
+    getMarkedAsCaught(fishid: any) {
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+        if (this.fishes[fishid - 1].id == this.favoritesAndCatched[i].fish) {
+          if (this.favoritesAndCatched[i].catched === 1) {
+            return true;
+          }
+        }
+      }
+    },
+
+  },
+
+  // created gets exec before mounted
+  // (see vue lifecycle)
+  created() {
+    this.getAllFish();
+
+    if (this.$session.exists()) {
+      this.loggedIn = true;
+      this.userId = this.$session.get("userid");
     }
   },
-  mounted() {
-    this.getAllFish();
+
+  // mounted gets exec after created
+  // (see vue lifecycle)
+  async mounted() {
+    const response = await auth.getUserFish(this.userId);
+
+    // if the user has saved favorites or catched
+    // then load them here into seperate data
+    this.favoritesAndCatched = response.data;
   }
 })
 </script>
@@ -125,12 +200,33 @@ export default Vue.extend({
 
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr;
       grid-gap: 15px;
+
+      #unfavorited,
+      #favorited {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        color: rgb(255, 205, 67);
+      }
+
+      #uncaught,
+      #caught {
+        position: absolute;
+        top: 45px;
+        left: 19px;
+        font-size: 20px;
+        color: rgb(142, 211, 85);
+      }
 
       #picture-and-more {
         display: flex;
         justify-content: center;
         align-items: center;
+        grid-column: 1;
+        grid-row: 1;
 
         img {
           display: block;
@@ -175,6 +271,8 @@ export default Vue.extend({
         display: flex;
         flex-direction: column;
         justify-content: center;
+        grid-column: 2;
+        grid-row: 1;
 
         p {
           font-family: "Biko Regular";

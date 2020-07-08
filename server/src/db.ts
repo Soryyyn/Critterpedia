@@ -7,10 +7,11 @@ export const connection = mysql.createConnection({
     database: "critterpedia"
 });
 
-connection.connect(function (err) {
+connection.connect((err: Error) => {
     if (err) {
-        console.error('error connecting: ' + err.stack);
+        console.error(err.stack);
         return;
+    } else {
+        console.log(`connected to db (critterpedia) as id ${connection.threadId}`);
     }
-    console.log('connected to db: "critterpedia" as id ' + connection.threadId);
 });
