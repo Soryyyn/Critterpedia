@@ -158,7 +158,7 @@ export default Vue.extend({
       this.$notify({
         type: "catching",
         title: 'Catched!',
-        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> has been caught!`,
+        text: `<b style="text-transform: capitalize;">${this.fishes[fishid - 1].name['name-EUen']}</b> has been caught!`,
         duration: 2000
       });
     },
@@ -183,7 +183,7 @@ export default Vue.extend({
       this.$notify({
         type: "catching",
         title: 'Not catched anymore!',
-        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> is catched anymore!`,
+        text: `<b style="text-transform: capitalize;">${this.fishes[fishid - 1].name['name-EUen']}</b> is catched anymore!`,
         duration: 2000
       });
     },
@@ -208,7 +208,7 @@ export default Vue.extend({
       this.$notify({
         type: "favorite",
         title: 'Favorited!',
-        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> has been favorited!`,
+        text: `<b style="text-transform: capitalize;">${this.fishes[fishid - 1].name['name-EUen']}</b> has been favorited!`,
         duration: 2000
       });
     },
@@ -233,7 +233,7 @@ export default Vue.extend({
       this.$notify({
         type: "favorite",
         title: 'Not favorited anymore!',
-        text: `<b>${this.fishes[fishid - 1].name['name-EUen']}</b> is not favorited anymore!`,
+        text: `<b style="text-transform: capitalize;">${this.fishes[fishid - 1].name['name-EUen']}</b> is not favorited anymore!`,
         duration: 2000
       });
     },
