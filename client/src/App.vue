@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Navigation></Navigation>
+    <notifications position="bottom right" />
     <router-view />
   </div>
 </template>
@@ -65,6 +66,39 @@ body {
   &::-webkit-scrollbar-thumb {
     background-color: darken(rgb(255, 239, 225), 30%);
     border-radius: 20px;
+  }
+}
+
+.vue-notification {
+  margin: 0 5px 5px;
+  font-family: "Biko Regular";
+
+  .notification-title {
+    font-family: "Biko Bold";
+    font-size: 20px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    border-bottom: rgba(0, 0, 0, 0.1) 2px solid;
+  }
+
+  .notification-content {
+    font-size: 16px;
+  }
+
+  &.catching {
+    padding: 2rem 2rem;
+    border: none;
+    border-radius: 10px;
+    background: rgb(142, 211, 85);
+    color: black;
+  }
+
+  &.favorite {
+    padding: 2rem 2rem;
+    border: none;
+    border-radius: 10px;
+    background: rgb(255, 205, 67);
+    color: black;
   }
 }
 </style>

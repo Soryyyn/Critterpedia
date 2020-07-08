@@ -24,6 +24,10 @@
           placeholder="tr33-Branch"
         />
         <button id="signup_button">Sign up</button>
+        <p id="signin">
+          or sign up
+          <router-link :to="{ name: 'Signin'}">here</router-link>
+        </p>
       </form>
     </div>
   </div>
@@ -163,6 +167,17 @@ h1 {
         box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
         outline: none;
         transition: 0.2s;
+      }
+    }
+
+    #signin {
+      font-family: "Biko Regular";
+      text-align: center;
+      margin-top: 25px;
+      font-size: 22px;
+
+      a {
+        color: rgb(85, 175, 211);
       }
     }
   }
