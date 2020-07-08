@@ -13,8 +13,7 @@
         <i class="fas fa-bug"></i>
         Bugs
       </router-link>
-      <!-- add userid as param -->
-      <router-link tag="li" :to="{ name: 'Signup'}">
+      <router-link tag="li" :to="{ name: 'Signin'}">
         <i class="fas fa-user"></i>
       </router-link>
     </ul>
