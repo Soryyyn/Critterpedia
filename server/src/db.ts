@@ -12,6 +12,6 @@ connection.connect((err: Error) => {
         console.error(err.stack);
         return;
     } else {
-        console.log(`connected to db (critterpedia) as id ${connection.threadId}`);
+        console.log(`connected to db (critterpedia) as id ${connection.threadId}\n`);
     }
 });

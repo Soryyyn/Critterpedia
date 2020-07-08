@@ -9,23 +9,23 @@
       >
         <div v-if="loggedIn == true">
           <div v-if="getMarkedAsFavorite(fish.id) != true">
-            <a id="unfavorited">
+            <a id="unfavorited" v-on:click="markAsFavorited(fish.id)">
               <i class="far fa-star"></i>
             </a>
           </div>
           <div v-else>
-            <a id="favorited">
+            <a id="favorited" v-on:click="markAsUnfavorited(fish.id)">
               <i class="fas fa-star"></i>
             </a>
           </div>
 
           <div v-if="getMarkedAsCaught(fish.id) != true">
-            <a id="uncaught">
+            <a id="uncaught" v-on:click="markAsCaught(fish.id)">
               <i class="far fa-bookmark"></i>
             </a>
           </div>
           <div v-else>
-            <a id="caught">
+            <a id="caught" v-on:click="markAsUncaught(fish.id)">
               <i class="fas fa-bookmark"></i>
             </a>
           </div>
@@ -79,8 +79,6 @@
 </template>
 
 <script lang="ts">
-
-// TODO: add fishcard & bugcard for less copy code
 
 import Vue from 'vue';
 import * as _ from "lodash";
@@ -138,6 +136,115 @@ export default Vue.extend({
         }
       }
     },
+
+    // TODO: add info card (vue-notification)
+    // catch the clicked icon of fish
+    markAsCaught(fishid) {
+      let favorited;
+      if (this.getMarkedAsFavorite(fishid) === true) {
+        favorited = 1;
+      } else {
+        favorited = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        fish: fishid,
+        favorited: favorited,
+        catched: 1
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // uncatch the clicked icon of fish
+    markAsUncaught(fishid) {
+      let favorited;
+      if (this.getMarkedAsFavorite(fishid) === true) {
+        favorited = 1;
+      } else {
+        favorited = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        fish: fishid,
+        favorited: favorited,
+        catched: 0
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // favorite the clicked icon of fish
+    markAsFavorited(fishid) {
+      let caught;
+      if (this.getMarkedAsCaught(fishid) === true) {
+        caught = 1;
+      } else {
+        caught = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        fish: fishid,
+        favorited: 1,
+        catched: caught
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // unfavorite the clicked icon of fish
+    markAsUnfavorited(fishid) {
+      let caught;
+      if (this.getMarkedAsCaught(fishid) === true) {
+        caught = 1;
+      } else {
+        caught = 0;
+      }
+
+      let newChanges = {
+        userid: this.userId,
+        fish: fishid,
+        favorited: 0,
+        catched: caught
+      }
+
+      this.saveChanges(newChanges);
+    },
+
+    // first change saves to current session and then
+    // save changes to db
+    async saveChanges(changes) {
+      let toChange = null;
+      for (let i = 0; i < this.favoritesAndCatched.length; i++) {
+
+        // if there is already an entry in local list or db
+        if (this.favoritesAndCatched[i].user == this.userId && this.favoritesAndCatched[i].fish == changes.fish) {
+          toChange = i;
+        }
+
+      }
+
+      if (toChange != null) {
+        this.favoritesAndCatched[toChange].user = changes.userid;
+        this.favoritesAndCatched[toChange].fish = changes.fish;
+        this.favoritesAndCatched[toChange].catched = changes.catched;
+        this.favoritesAndCatched[toChange].favorited = changes.favorited;
+
+        auth.postChangeToUserFish(changes);
+      } else {
+        this.favoritesAndCatched.push({
+          user: changes.userid,
+          fish: changes.fish,
+          catched: changes.catched,
+          favorited: changes.favorited
+        });
+
+        auth.postChangeToUserFish(changes);
+      }
+    }
 
   },
 
@@ -210,6 +317,17 @@ export default Vue.extend({
         left: 15px;
         font-size: 20px;
         color: rgb(255, 205, 67);
+        transition: 0.1 ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          transform: scale(1.2);
+          transition: 0.1s ease-in-out;
+          text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
+        }
       }
 
       #uncaught,
@@ -219,6 +337,17 @@ export default Vue.extend({
         left: 19px;
         font-size: 20px;
         color: rgb(142, 211, 85);
+        transition: 0.1 ease-in-out;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:active {
+          transform: scale(1.2);
+          transition: 0.1s ease-in-out;
+          text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+        }
       }
 
       #picture-and-more {
