@@ -73,7 +73,15 @@
               <p class="overlay">Time: All day</p>
             </div>
 
-            <p class="overlay">Location: {{bug.availability.location}}</p>
+            <div v-if="bug.availability.location != ''">
+              <p class="overlay">Location: {{bug.availability.location}}</p>
+            </div>
+            <div v-else>
+              <p class="overlay">
+                Location:
+                <i>Location not defined</i>
+              </p>
+            </div>
             <p class="overlay">Rarity: {{bug.availability.rarity}}</p>
             <p class="overlay">Nook's Cranny: {{bug.price}} Bells</p>
             <p class="overlay">Flick: {{bug['price-flick']}} Bells</p>

@@ -77,7 +77,15 @@
               <p class="overlay">Time: All day</p>
             </div>
 
-            <p class="overlay">Location: {{fish.availability.location}}</p>
+            <div v-if="fish.availability.location != ''">
+              <p class="overlay">Location: {{fish.availability.location}}</p>
+            </div>
+            <div v-else>
+              <p class="overlay">
+                Location:
+                <i>Location not defined</i>
+              </p>
+            </div>
             <p class="overlay">Rarity: {{fish.availability.rarity}}</p>
             <p class="overlay">Shadow Size: {{fish.shadow}}</p>
             <p class="overlay">Nook's Cranny: {{fish.price}} Bells</p>
