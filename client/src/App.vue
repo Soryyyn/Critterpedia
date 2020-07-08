@@ -100,5 +100,13 @@ body {
     background: rgb(255, 205, 67);
     color: black;
   }
+
+  &.error {
+    padding: 2rem 2rem;
+    border: none;
+    border-radius: 10px;
+    background: rgb(255, 90, 90);
+    color: black;
+  }
 }
 </style>

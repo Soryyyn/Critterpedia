@@ -1,12 +1,10 @@
 <template>
-  <div id="signup">
+  <div id="signin">
     <h1>
-      <span>Sign up</span> for an account
+      <span>Sign in</span> to an account
     </h1>
     <div id="wrapper">
-      <form @submit.prevent="signupUser()">
-        <label for="nickname">Nickname</label>
-        <input type="text" name="nickname" id="nickname" v-model="nickname" placeholder="Steve" />
+      <form @submit.prevent="signinUser()">
         <label for="email">Email</label>
         <input
           type="email"
@@ -23,10 +21,11 @@
           v-model="password"
           placeholder="tr33-Branch"
         />
-        <button id="signup_button">Sign up</button>
-        <p id="signin">
-          or sign in
-          <router-link :to="{ name: 'Signin'}">here</router-link>
+        <!-- TODO: if something is empty give error or disable-->
+        <button id="signin_button" type="submit">Sign in</button>
+        <p id="signup">
+          or sign up
+          <router-link :to="{ name: 'Signup'}">here</router-link>
         </p>
       </form>
     </div>
@@ -39,38 +38,41 @@ import * as bcrypt from "bcryptjs";
 import auth from "../services/auth";
 
 export default Vue.extend({
-  name: "SignupComponent",
+  name: "SigninComponent",
   data() {
     return {
-      nickname: "",
       email: "",
       password: ""
     }
   },
   methods: {
-    async signupUser() {
+    async signinUser() {
       let salt = bcrypt.genSaltSync();
 
-      let newUser = {
-        nickname: this.nickname,
+      let user = {
         email: this.email,
-        password: bcrypt.hashSync(this.password, salt)
+        password: this.password
       }
 
-      const response = await auth.postSignup(newUser);
-      if (response.data.userid != undefined) {
-        // start session and save nickname of user
-        // move user to previous route (fish, bugs, etc.)
-        this.$session.start();
-        this.$session.set("userid", response.data.userid);
-        this.$router.push({ name: 'Home' })
-      } else {
-        this.$notify({
-          type: "error",
-          title: 'Error on sign in',
-          text: response.data,
-          duration: 5000
-        });
+      if (user.password != undefined) {
+        const response = await auth.postSignin(user);
+
+        if (response.data.hash != undefined) {
+          if (bcrypt.compareSync(this.password, response.data.hash)) {
+            // start session and save nickname of user
+            // move user to previous route (fish, bugs, etc.)
+            this.$session.start();
+            this.$session.set("userid", response.data.userid);
+            this.$router.push({ name: 'Home' })
+          }
+        } else {
+          this.$notify({
+            type: "error",
+            title: 'Error on sign in',
+            text: response.data,
+            duration: 5000
+          });
+        }
       }
 
     }
@@ -79,7 +81,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
-#signup {
+#signin {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -150,7 +152,7 @@ h1 {
       }
     }
 
-    #signup_button {
+    #signin_button {
       padding: 10px 30px;
       font-size: 22px;
       font-family: "Biko Bold";
@@ -175,7 +177,7 @@ h1 {
       }
     }
 
-    #signin {
+    #signup {
       font-family: "Biko Regular";
       text-align: center;
       margin-top: 25px;
