@@ -125,35 +125,51 @@ app.post("/bugs", (req, res) => {
 
 // signup user in table
 app.post("/signup", (req, res) => {
+
     let user = req.body;
 
-    // test if user with same nickname or email exists in users table
-    // if there isnt send error to client
-    // else create new entry for user in table
-    // and send userid to client for better management
-    try {
-        connection.query(`SELECT * FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
-            if (error) throw error;
+    // check if password is 6 or more characters
+    // & is a mix of numbers and letters
+    if (this.password.match(/^(?=.*[0-9]+.*)(?=.*[a-zA-Z]+.*)[0-9a-zA-Z]{6,}$/)) {
 
-            if (results.length < 1) {
-                connection.query(`INSERT INTO users (nickname, email, password) VALUES ("${user.nickname}", "${user.email}", "${user.password}")`, (error: Error) => {
-                    if (error) {
-                        throw error
+        // check if email is valid
+        if (this.email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/)) {
+
+            // test if user with same nickname or email exists in users table
+            // if there isnt send error to client
+            // else create new entry for user in table
+            // and send userid to client for better management
+            try {
+                connection.query(`SELECT * FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
+                    if (error) throw error;
+
+                    if (results.length < 1) {
+                        connection.query(`INSERT INTO users (nickname, email, password) VALUES ("${user.nickname}", "${user.email}", "${user.password}")`, (error: Error) => {
+                            if (error) {
+                                throw error
+                            }
+
+                            connection.query(`SELECT id FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
+                                if (error) throw error;
+                                res.send({ userid: results[0].id });
+                            });
+                        })
+                    } else {
+                        res.send("User with same nickname or email is already in use");
                     }
 
-                    connection.query(`SELECT id FROM users WHERE nickname = "${user.nickname}" OR email = "${user.email}"`, (error: Error, results: any) => {
-                        if (error) throw error;
-                        res.send({ userid: results[0].id });
-                    });
-                })
-            } else {
-                res.send("User with same nickname or email is already in use");
+                });
+            } catch (error) {
+                throw error;
             }
 
-        });
-    } catch (error) {
-        throw error;
+        } else {
+            res.send("Email is not valid");
+        }
+    } else {
+        res.send("Password doesn't match the rules");
     }
+
 });
 
 // signin user
