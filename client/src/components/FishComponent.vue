@@ -7,7 +7,7 @@
         v-bind:key="fish.id"
         v-bind:id="fish.id + '_' + fish.name['name-EUen']"
       >
-        <div v-if="loggedIn == true">
+        <div id="icon-wrapper" v-if="loggedIn == true">
           <div v-if="getMarkedAsFavorite(fish.id) != true">
             <a id="unfavorited" v-on:click="markAsFavorited(fish.id)">
               <i class="far fa-star"></i>
@@ -122,7 +122,7 @@ export default Vue.extend({
     // get all fish from api
     async getAllFish() {
       const response = await auth.getFish();
-      let temp = _.sortBy(response.data, "id", "asc");
+      let temp = _.sortBy(response.data.data, "id", "asc");
 
       // @ts-ignore
       this.fishes = temp;
@@ -316,6 +316,23 @@ export default Vue.extend({
     setInterval(() => {
       this.available = [];
       let currentHour = moment().format("H");
+      let currentMonth = moment().month() + 1;
+
+      // for fishes that are available for the current month
+      // go through these to see if the time is also ok
+      // TODO: for second version (proper release after project)
+
+      // let temp = [];
+
+      // for (let i = 0; i < this.fishes.length; i++) {
+      //   if (this.fishes[i].availability.isAllYear) {
+      //     temp.push(this.fishes[i].id);
+      //   } else {
+      //     for (let j = 0; j < this.fishes[i].availability["time-array"].length) {
+
+      //     }
+      //   }
+      // }
 
       for (let i = 0; i < this.fishes.length; i++) {
         if (!this.fishes[i].availability.isAllDay) {
@@ -332,6 +349,7 @@ export default Vue.extend({
           this.available.push(this.fishes[i].id);
         }
       }
+
     }, 1000);
   },
 
@@ -384,61 +402,53 @@ export default Vue.extend({
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr;
-      grid-gap: 15px;
+      grid-row-gap: 0px;
+      grid-column-gap: 15px;
 
-      #unfavorited,
-      #favorited {
+      #icon-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         position: absolute;
-        top: 15px;
-        left: 15px;
-        font-size: 20px;
-        color: rgb(255, 205, 67);
-        transition: 0.1 ease-in-out;
+        top: 5px;
+        left: 5px;
+        padding: 10px;
 
-        &:hover {
-          cursor: pointer;
-        }
-
-        &:active {
-          transform: scale(1.2);
+        #unfavorited,
+        #favorited {
+          font-size: 20px;
+          color: rgb(255, 205, 67);
           transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
-        }
-      }
 
-      #uncaught,
-      #caught {
-        position: absolute;
-        top: 45px;
-        left: 19px;
-        font-size: 20px;
-        color: rgb(142, 211, 85);
-        transition: 0.1 ease-in-out;
+          &:hover {
+            cursor: pointer;
+          }
 
-        &:hover {
-          cursor: pointer;
+          &:active {
+            transition: 0.1s ease-in-out;
+            color: lighten(rgb(255, 205, 67), 20%);
+          }
         }
 
-        &:active {
-          transform: scale(1.2);
+        #uncaught,
+        #caught {
+          font-size: 20px;
+          color: rgb(142, 211, 85);
           transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:active {
+            transition: 0.1s ease-in-out;
+          }
         }
-      }
 
-      #unavailable,
-      #available {
-        position: absolute;
-        top: 72px;
-        left: 17px;
-        font-size: 20px;
-        color: rgb(85, 175, 211);
-        transition: 0.1 ease-in-out;
-
-        &:active {
-          transform: scale(1.2);
-          transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(85, 175, 211, 0.2), 50%);
+        #unavailable,
+        #available {
+          font-size: 20px;
+          color: rgb(85, 175, 211);
         }
       }
 

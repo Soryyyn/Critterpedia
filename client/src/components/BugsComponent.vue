@@ -7,7 +7,7 @@
         v-bind:key="bug.id"
         v-bind:id="bug.id + '_' + bug.name['name-EUen']"
       >
-        <div v-if="loggedIn == true">
+        <div id="icon-wrapper" v-if="loggedIn == true">
           <div v-if="getMarkedAsFavorite(bug.id) != true">
             <a id="unfavorited" v-on:click="markAsFavorited(bug.id)">
               <i class="far fa-star"></i>
@@ -383,61 +383,56 @@ export default Vue.extend({
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 1fr;
-      grid-gap: 15px;
+      grid-row-gap: 0px;
+      grid-column-gap: 15px;
 
-      #unfavorited,
-      #favorited {
+      #icon-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         position: absolute;
         top: 15px;
         left: 15px;
-        font-size: 20px;
-        color: rgb(255, 205, 67);
-        transition: 0.1 ease-in-out;
 
-        &:hover {
-          cursor: pointer;
+        #unfavorited,
+        #favorited {
+          font-size: 20px;
+          color: rgb(255, 205, 67);
+          transition: 0.1 ease-in-out;
+
+          &:hover {
+            cursor: pointer;
+          }
+
+          &:active {
+            transform: scale(1.2);
+            transition: 0.1s ease-in-out;
+            text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
+          }
         }
 
-        &:active {
-          transform: scale(1.2);
-          transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
-        }
-      }
+        #uncaught,
+        #caught {
+          font-size: 20px;
+          color: rgb(142, 211, 85);
+          transition: 0.1 ease-in-out;
 
-      #uncaught,
-      #caught {
-        position: absolute;
-        top: 45px;
-        left: 19px;
-        font-size: 20px;
-        color: rgb(142, 211, 85);
-        transition: 0.1 ease-in-out;
+          &:hover {
+            cursor: pointer;
+          }
 
-        &:hover {
-          cursor: pointer;
+          &:active {
+            transform: scale(1.2);
+            transition: 0.1s ease-in-out;
+            text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+          }
         }
 
-        &:active {
-          transform: scale(1.2);
-          transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
-        }
-      }
-
-      #unavailable,
-      #available {
-        position: absolute;
-        top: 72px;
-        left: 17px;
-        font-size: 20px;
-        color: rgb(85, 175, 211);
-        transition: 0.1 ease-in-out;
-
-        &:active {
-          transform: scale(1.2);
-          transition: 0.1s ease-in-out;
-          text-shadow: 2px 4px 5px darken(rgba(85, 175, 211, 0.2), 50%);
+        #unavailable,
+        #available {
+          font-size: 20px;
+          color: rgb(85, 175, 211);
+          transition: 0.1 ease-in-out;
         }
       }
 

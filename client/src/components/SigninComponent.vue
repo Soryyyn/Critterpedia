@@ -21,7 +21,7 @@
           v-model="password"
           placeholder="tr33-Branch"
         />
-        <!-- TODO: if something is empty give error or disable-->
+        <!-- TODO: if something is empty give error or disable -->
         <button id="signin_button" type="submit">Sign in</button>
         <p id="signup">
           or sign up
