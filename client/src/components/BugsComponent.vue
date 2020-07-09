@@ -405,9 +405,8 @@ export default Vue.extend({
           }
 
           &:active {
-            transform: scale(1.2);
             transition: 0.1s ease-in-out;
-            text-shadow: 2px 4px 5px darken(rgba(255, 205, 67, 0.2), 50%);
+            color: lighten(rgb(255, 205, 67), 20%);
           }
         }
 
@@ -422,9 +421,8 @@ export default Vue.extend({
           }
 
           &:active {
-            transform: scale(1.2);
             transition: 0.1s ease-in-out;
-            text-shadow: 2px 4px 5px darken(rgba(142, 211, 85, 0.2), 50%);
+            color: lighten(rgb(142, 211, 85), 20%);
           }
         }
 
