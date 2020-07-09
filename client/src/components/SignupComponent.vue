@@ -51,26 +51,30 @@ export default Vue.extend({
     async signupUser() {
       let salt = bcrypt.genSaltSync();
 
-      let newUser = {
-        nickname: this.nickname,
-        email: this.email,
-        password: bcrypt.hashSync(this.password, salt)
-      }
+      if (this.nickname.length != 0 || this.email.length != 0 || this.password.length != 0) {
 
-      const response = await auth.postSignup(newUser);
-      if (response.data.userid != undefined) {
-        // start session and save nickname of user
-        // move user to previous route (fish, bugs, etc.)
-        this.$session.start();
-        this.$session.set("userid", response.data.userid);
-        this.$router.push({ name: 'Home' })
-      } else {
-        this.$notify({
-          type: "error",
-          title: 'Error on sign in',
-          text: response.data,
-          duration: 5000
-        });
+        let newUser = {
+          nickname: this.nickname,
+          email: this.email,
+          password: bcrypt.hashSync(this.password, salt)
+        }
+
+        const response = await auth.postSignup(newUser);
+        if (response.data.userid != undefined) {
+          // start session and save nickname of user
+          // move user to previous route (fish, bugs, etc.)
+          this.$session.start();
+          this.$session.set("userid", response.data.userid);
+          this.$router.push({ name: 'Home' })
+        } else {
+          this.$notify({
+            type: "error",
+            title: 'Error on sign in',
+            text: response.data,
+            duration: 5000
+          });
+        }
+
       }
 
     }
