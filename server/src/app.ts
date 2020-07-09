@@ -17,10 +17,18 @@ app.use(cors()); // security stuff
 app.get("/fish", (req, res) => {
     axios.get("http://acnhapi.com/v1/fish")
         .then((response: any) => {
-            res.send(response.data);
+            res.send({
+                status: 200,
+                msg: "fishes collected from api successfully",
+                data: response.data
+            });
         })
         .catch((error: Error) => {
-            throw error;
+            res.send({
+                status: 500,
+                msg: "error when connecting to api. error: " + error,
+                data: {}
+            });
         });
 });
 

@@ -9,7 +9,7 @@ export const connection = mysql.createConnection({
 
 connection.connect((err: Error) => {
     if (err) {
-        console.error(err.stack);
+        console.error(`could not connect to db. error stack: \n${err.stack}`);
         return;
     } else {
         console.log(`connected to db (critterpedia) as id ${connection.threadId}\n`);
