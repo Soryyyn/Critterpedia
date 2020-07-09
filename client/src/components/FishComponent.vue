@@ -442,6 +442,7 @@ export default Vue.extend({
 
           &:active {
             transition: 0.1s ease-in-out;
+            color: lighten(rgb(142, 211, 85), 20%);
           }
         }
 
