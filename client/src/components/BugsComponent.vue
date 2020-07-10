@@ -113,7 +113,7 @@ export default Vue.extend({
 
     async getAllBugs() {
       const response = await auth.getBugs();
-      let temp = _.sortBy(response.data, "id", "asc");
+      let temp = _.sortBy(response.data.data, "id", "asc");
 
       // @ts-ignore
       this.bugs = temp;
