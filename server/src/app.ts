@@ -5,7 +5,7 @@ import axios from "axios";
 import * as bodyParser from "body-parser";
 import * as cors from "cors";
 import * as morgan from "morgan";
-import * as rateLimit from "express-rate-limit";
+import rateLimit = require("express-rate-limit");
 
 // more imports
 import { connection } from "./db";
