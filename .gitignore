@@ -2,6 +2,7 @@
 client/.DS_Store
 client/node_modules/
 client/dist/
+client/.env
 
 # local env files
 client/.env.local
@@ -26,3 +27,4 @@ client/*.sw?
 # server ignores
 server/node_modules/
 server/dist/
+server/.env
