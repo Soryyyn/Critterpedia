@@ -122,10 +122,22 @@ export default Vue.extend({
     // get all fish from api
     async getAllFish() {
       const response = await auth.getFish();
-      let temp = _.sortBy(response.data.data, "id", "asc");
 
-      // @ts-ignore
-      this.fishes = temp;
+      // if getting fish from api worked then put them in list
+      // else notify user
+      if (response.data.status == "ok") {
+        let temp = _.sortBy(response.data.fish, "id", "asc");
+        // @ts-ignore
+        this.fishes = temp;
+      } else {
+        this.$notify({
+          type: "error",
+          title: "Error",
+          text: response.data.msg,
+          duration: 5000
+        });
+      }
+
     },
 
     // convert month to readably names

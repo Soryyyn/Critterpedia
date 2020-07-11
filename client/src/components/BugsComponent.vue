@@ -113,10 +113,21 @@ export default Vue.extend({
 
     async getAllBugs() {
       const response = await auth.getBugs();
-      let temp = _.sortBy(response.data.data, "id", "asc");
 
-      // @ts-ignore
-      this.bugs = temp;
+      // if getting bugs from api worked then put them in list
+      // else notify user
+      if (response.data.status == "ok") {
+        let temp = _.sortBy(response.data.bugs, "id", "asc");
+        // @ts-ignore
+        this.bugs = temp;
+      } else {
+        this.$notify({
+          type: "error",
+          title: "Error",
+          text: response.data.msg,
+          duration: 5000
+        });
+      }
     },
 
     getMonths(range: string) {
