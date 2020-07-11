@@ -1,6 +1,3 @@
-// load .env file
-require('dotenv').config()
-
 // express & axios
 import * as express from "express";
 import axios from "axios";
@@ -23,7 +20,59 @@ app.use(cors()); // security stuff
 const filter = new Filter();
 
 // import user collection from db file
-import * as db from "./db";
+// setup mongoose and set schema
+import mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+// setup port & db connection for local or prod
+const PORT = process.env.port || 8081
+const CONNECTION_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/Critterpedia";
+
+// Connect MongoDB at default port 27017
+mongoose.connect(CONNECTION_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+}, (err) => {
+    if (!err) {
+        console.log('connected to mongodb')
+    } else {
+        console.log(`error when connecting to mongodb: ${err}`)
+    }
+});
+
+// define user schema
+let userSchema = new Schema({
+    nickname: {
+        type: String
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    fish: [
+        {
+            fish: Number,
+            caught: Boolean,
+            favorited: Boolean
+        }
+    ],
+    bugs: [
+        {
+            bug: Number,
+            caught: Boolean,
+            favorited: Boolean
+        }
+    ],
+});
+
+// define model
+export const userCollection = mongoose.model("users", userSchema);
 
 
 //
@@ -58,7 +107,7 @@ app.get("/fish", (req, res) => {
 app.get("/fish/:userid", (req, res) => {
 
     // search for user in collection with id
-    db.userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
+    userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
 
         if (err) {
             res.json({
@@ -112,7 +161,7 @@ app.get("/bugs", (req, res) => {
 app.get("/bugs/:userid", (req, res) => {
 
     // search for user in collection with id
-    db.userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
+    userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
 
         if (err) {
             res.json({
@@ -162,7 +211,7 @@ app.post("/fish", async (req, res) => {
     // if user has this bug already saved
     // update the entry
     // else insert new entry
-    db.userCollection.findOneAndUpdate({
+    userCollection.findOneAndUpdate({
         _id: changesToFish.user,
         "fish.fish": changesToFish.fishId
     }, {
@@ -184,7 +233,7 @@ app.post("/fish", async (req, res) => {
 
             if (doc == null) {
 
-                db.userCollection.findOneAndUpdate({
+                userCollection.findOneAndUpdate({
                     _id: changesToFish.user,
                 }, {
                     $push: {
@@ -240,7 +289,7 @@ app.post("/bugs", async (req, res) => {
     // if user has this bug already saved
     // update the entry
     // else insert new entry
-    db.userCollection.findOneAndUpdate({
+    userCollection.findOneAndUpdate({
         _id: changesToBugs.user,
         "bugs.bug": changesToBugs.bugId
     }, {
@@ -262,7 +311,7 @@ app.post("/bugs", async (req, res) => {
 
             if (doc == null) {
 
-                db.userCollection.findOneAndUpdate({
+                userCollection.findOneAndUpdate({
                     _id: changesToBugs.user,
                 }, {
                     $push: {
@@ -318,7 +367,7 @@ app.post("/signup", async (req, res) => {
     // if there is send to client that there are more than 1 user
     // with same nickname or email
     // else insert new user in db
-    if (await db.userCollection.exists({
+    if (await userCollection.exists({
         nickname: filter.clean(req.body.nickname.toString()),
         email: filter.clean(req.body.email.toString()),
     })) {
@@ -331,10 +380,10 @@ app.post("/signup", async (req, res) => {
     } else {
 
         // create new user
-        let user = new db.userCollection(data);
+        let user = new userCollection(data);
 
         // save new user in collection
-        db.userCollection.create(user, (err, doc) => {
+        userCollection.create(user, (err, doc) => {
             if (err) {
                 res.json({
                     status: "error",
@@ -363,7 +412,7 @@ app.post("/signin", async (req, res) => {
 
     // if there exists a user with same email
     // send to to client to sign in
-    db.userCollection.findOne({ email: data.email }, (err, doc) => {
+    userCollection.findOne({ email: data.email }, (err, doc) => {
 
         if (err) {
             res.json({
@@ -384,7 +433,10 @@ app.post("/signin", async (req, res) => {
 
 });
 
+// make express build for production if necessary
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../../client/build"));
+}
+
 // listen on port
-app.listen(8081, () => {
-    console.log("server listening on port 8081...")
-});
+app.listen(PORT, () => console.log(`server listening on port ${PORT}.`));

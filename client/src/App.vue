@@ -44,6 +44,15 @@ export default Vue.extend({
   src: url("./assets/fonts/Biko_Black.otf");
 }
 
+:root {
+  --fontColor: black;
+  --fontLighterColor: rgb(51, 51, 51);
+
+  --fishTitleColor: rgb(85, 175, 211);
+  --fishTitleAccent: rgb(51, 103, 124);
+  --fishTitleShadow: rgba(51, 103, 124, 0.3);
+}
+
 * {
   padding: 0;
   margin: 0;
