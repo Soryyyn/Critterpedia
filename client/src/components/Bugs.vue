@@ -1,5 +1,10 @@
 <template>
-  <GridComponent pageName="Bugs" v-bind:creatures="this.bugs" creatureType="bug"></GridComponent>
+  <GridComponent
+    pageName="Bugs"
+    v-bind:creatures="this.bugs"
+    creatureType="bug"
+    v-bind:loggedIn="this.loggedIn"
+  ></GridComponent>
 </template>
 
 <script lang="ts">
@@ -19,7 +24,8 @@ export default Vue.extend({
 
   data() {
     return {
-      bugs: [1], // fill it with 1 to fix error
+      bugs: [],
+      loggedIn: false
     }
   },
 
@@ -51,6 +57,10 @@ export default Vue.extend({
 
   created() {
     this.getAllBugs();
+
+    if (this.$session.exists()) {
+      this.loggedIn = true;
+    }
   }
 });
 </script>

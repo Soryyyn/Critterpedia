@@ -65,6 +65,7 @@ export default Vue.extend({
                 // move user to previous route (fish, bugs, etc.)
                 this.$session.start();
                 this.$session.set("userid", response.data.user._id);
+                this.$session.set("hemisphere", response.data.user.hemisphere);
                 this.$router.push({ name: 'Home' })
               } else {
                 this.$notify({

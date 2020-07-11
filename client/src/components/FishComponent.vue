@@ -102,7 +102,7 @@
 import Vue from 'vue';
 import * as _ from "lodash";
 import auth from "../services/auth";
-import * as moment from "moment";
+
 
 export default Vue.extend({
   name: 'FishComponent',
