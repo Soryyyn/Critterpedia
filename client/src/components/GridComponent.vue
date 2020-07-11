@@ -6,6 +6,8 @@
         v-for="creature in creatures"
         v-bind:key="creature.id"
         v-bind:creature="creature"
+        v-bind:creatureType="creatureType"
+        v-bind:loggedIn="loggedIn"
       ></CardComponent>
     </ul>
   </div>
@@ -23,7 +25,9 @@ export default Vue.extend({
   },
   props: [
     "pageName",
-    "creatures"
+    "creatures",
+    "creatureType",
+    "loggedIn"
   ],
   computed: {
     wrapperStyle() {
@@ -50,7 +54,11 @@ export default Vue.extend({
             -webkit-text-stroke-color: var(--fishTitleAccent);
           `;
       } else if (this.pageName == "Bugs") {
-
+        style += `
+            color: var(--bugsTitleColor);
+            text-shadow: 3px 3px 0px var(--bugsTitleShadow);
+            -webkit-text-stroke-color: var(--bugsTitleAccent);
+          `;
       }
 
       return style;

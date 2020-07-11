@@ -51,6 +51,10 @@ export default Vue.extend({
   --fishTitleColor: rgb(85, 175, 211);
   --fishTitleAccent: rgb(51, 103, 124);
   --fishTitleShadow: rgba(51, 103, 124, 0.3);
+
+  --bugsTitleColor: rgb(142, 211, 85);
+  --bugsTitleAccent: rgb(82, 122, 48);
+  --bugsTitleShadow: rgba(82, 122, 48, 0.3);
 }
 
 * {

@@ -23,6 +23,18 @@
           v-model="password"
           placeholder="tr33-Branch"
         />
+
+        <label>
+          Hemisphere
+          <i>(changeable in settings later)</i>
+        </label>
+
+        <select v-model="hemisphere">
+          <option value selected disabled hidden>Select an Option</option>
+          <option value="northern" selected>Northern</option>
+          <option value="southern">Southern</option>
+        </select>
+
         <button id="signup_button">Sign up</button>
         <p id="signin">
           or sign in
@@ -44,39 +56,52 @@ export default Vue.extend({
     return {
       nickname: "",
       email: "",
-      password: ""
+      password: "",
+      hemisphere: ""
     }
   },
   methods: {
-    async signupUser() {
+    signupUser() {
       let salt = bcrypt.genSaltSync();
 
-      if (this.nickname.length != 0 || this.email.length != 0 || this.password.length != 0) {
+      if (this.nickname.length != 0 && this.email.length != 0 && this.password.length != 0 && this.hemisphere.length) {
 
         let newUser = {
           nickname: this.nickname,
           email: this.email,
-          password: bcrypt.hashSync(this.password, salt)
+          password: bcrypt.hashSync(this.password, salt),
+          hemisphere: this.hemisphere
         }
 
-        const response = await auth.postSignup(newUser);
-        if (response.data.userid != undefined) {
-          // start session and save nickname of user
-          // move user to previous route (fish, bugs, etc.)
-          this.$session.start();
-          this.$session.set("userid", response.data.userid);
-          this.$router.push({ name: 'Home' })
-        } else {
-          this.$notify({
-            type: "error",
-            title: 'Error on sign in',
-            text: response.data,
-            duration: 5000
+        // start session and save nickname of user
+        // move user to previous route(fish, bugs, etc.)
+        auth.postSignup(newUser)
+          .then((response) => {
+            if (response.data.status == "ok") {
+              this.$session.start();
+              this.$session.set("userid", response.data.user._id);
+              this.$router.push({ name: 'Home' })
+            } else {
+              this.$notify({
+                type: "error",
+                title: "Error",
+                text: response.data.msg,
+                duration: 5000
+              });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
           });
-        }
 
+      } else {
+        this.$notify({
+          type: "error",
+          title: "Error",
+          text: "Not all fields are set",
+          duration: 5000
+        });
       }
-
     }
   }
 })
@@ -130,6 +155,10 @@ h1 {
       font-size: 22px;
       font-family: "Biko Bold";
       opacity: 0.6;
+    }
+
+    .smaller {
+      font-size: 18px;
     }
 
     input {
@@ -189,6 +218,34 @@ h1 {
         color: rgb(85, 175, 211);
       }
     }
+  }
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+
+  margin-bottom: 25px;
+  padding: 10px;
+  font-family: "Biko Regular";
+  font-size: 22px;
+  width: 100%;
+  box-sizing: border-box;
+
+  border: 2px solid darken(rgb(255, 239, 225), 5%);
+  border-radius: 10px;
+  box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+  background: lighten(rgb(255, 239, 225), 5%);
+  transition: 0.2s ease-in-out;
+  outline: none;
+
+  &:focus {
+    border: 2px solid darken(rgb(255, 239, 225), 15%);
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+    outline: none;
+    transition: 0.2s ease-in-out;
   }
 }
 </style>

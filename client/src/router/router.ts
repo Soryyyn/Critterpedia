@@ -9,6 +9,7 @@ import BugsComponent from '@/components/BugsComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import SigninComponent from '@/components/SigninComponent.vue';
 import Fish from "@/components/Fish.vue"
+import Bugs from "@/components/Bugs.vue"
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -34,7 +35,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/bugs',
     name: 'Bugs',
-    component: BugsComponent,
+    component: Bugs,
     meta: {
       title: "Bugs | Critterpedia"
     }

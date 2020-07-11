@@ -1,12 +1,14 @@
 <template>
   <div id="card">
+    <div v-if="loggedIn == true">
+      <ModifierListComponent v-bind:creatureType="creatureType" v-bind:creature="creature"></ModifierListComponent>
+    </div>
+
     <div id="picture-and-more">
       <div>
-        <img v-bind:src="creature.icon_uri" v-bind:alt="creature.name['name-EUen']" />
+        <img v-bind:src="creature.icon_uri" />
         <div>
-          <p id="name">
-            <b>{{creature.name['name-EUen']}}</b>
-          </p>
+          <p id="name">{{ creature.name && creature.name['name-EUen']}}</p>
           <p id="catch-phrase">"{{creature['catch-phrase']}}"</p>
         </div>
         <p id="number">#{{creature.id}}</p>
@@ -15,13 +17,9 @@
 
     <div id="info">
       <!-- months -->
-      <div v-if="creature.availability.isAllYear == false">
-        <p
-          class="overlay"
-        >North: {{getMonths(creature.availability['month-northern'].split("-")[0], creature.availability['month-northern'].split("-")[1])}}</p>
-        <p
-          class="overlay"
-        >South: {{getMonths(creature.availability['month-southern'].split("-")[0], creature.availability['month-southern'].split("-")[1])}}</p>
+      <div v-if="creature.availability && creature.availability.isAllYear == false">
+        <p class="overlay">North: {{getMonths(creature.availability['month-northern'])}}</p>
+        <p class="overlay">South: {{getMonths(creature.availability['month-southern'])}}</p>
       </div>
       <div v-else>
         <p class="overlay">North: All year</p>
@@ -29,11 +27,41 @@
       </div>
 
       <!-- time -->
-      <div v-if="creature.availability.isAllDay == false">
+      <div v-if="creature.availability && creature.availability.isAllDay == false">
         <p class="overlay">Time: {{creature.availability.time}}</p>
       </div>
       <div v-else>
         <p class="overlay">Time: All day</p>
+      </div>
+
+      <!-- location -->
+      <div v-if="creature.availability && creature.availability.location != ''">
+        <p class="overlay">Location: {{creature.availability.location}}</p>
+      </div>
+      <div v-else>
+        <p class="overlay">
+          Location:
+          <i>Location not defined</i>
+        </p>
+      </div>
+
+      <!-- rarity -->
+      <p class="overlay">Rarity: {{creature.availability && creature.availability.rarity}}</p>
+
+      <!-- shadow (only fish) -->
+      <div v-if="creature.shadow != undefined">
+        <p class="overlay">Shadow Size: {{creature && creature.shadow}}</p>
+      </div>
+
+      <!-- price nooks cranny -->
+      <p class="overlay">Nook's Cranny: {{creature && creature.price}} Bells</p>
+
+      <!-- price cj or flick or other if added -->
+      <div v-if="creatureType == 'fish'">
+        <p class="overlay">C.J: {{creature['price-cj']}} Bells</p>
+      </div>
+      <div v-else-if="creatureType == 'bug'">
+        <p class="overlay">Flick: {{creature['price-flick']}} Bells</p>
       </div>
     </div>
   </div>
@@ -41,12 +69,21 @@
 
 <script lang="ts">
 import Vue from 'vue'
+
+import ModifierListComponent from "@/components/ModifierListComponent.vue";
+
 export default Vue.extend({
   name: "CardComponent",
 
   props: [
-    "creature"
+    "creature",
+    "creatureType",
+    "loggedIn"
   ],
+
+  components: {
+    "ModifierListComponent": ModifierListComponent
+  },
 
   methods: {
 
