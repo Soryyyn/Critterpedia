@@ -24,7 +24,7 @@ export default Vue.extend({
 
   data() {
     return {
-      fishes: [1], // fill it with 1 to fix error
+      fishes: [],
       loggedIn: false
     }
   },

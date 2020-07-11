@@ -22,7 +22,7 @@
       </a>
     </div>
 
-    <!-- <div v-if="seeIfAvailable(creature.id) != true">
+    <div v-if="!isAvailable">
       <a id="unavailable">
         <i class="far fa-clock"></i>
       </a>
@@ -31,7 +31,7 @@
       <a id="available">
         <i class="fas fa-clock"></i>
       </a>
-    </div>-->
+    </div>
   </div>
 </template>
 
@@ -39,6 +39,7 @@
 import Vue from 'vue'
 
 import auth from "../services/auth";
+import * as moment from "moment";
 
 export default Vue.extend({
   name: "ModifierListComponent",
@@ -52,7 +53,8 @@ export default Vue.extend({
     return {
       isSaved: false,
       isCaught: false,
-      isFavorited: false
+      isFavorited: false,
+      isAvailable: false
     }
   },
 
@@ -100,9 +102,6 @@ export default Vue.extend({
                 duration: 5000
               });
             }
-
-            console.log(response.data);
-
           })
           .catch((err) => {
             console.log(err);
@@ -174,9 +173,6 @@ export default Vue.extend({
                 duration: 5000
               });
             }
-
-            console.log(response.data);
-
           })
           .catch((err) => {
             console.log(err);
@@ -254,6 +250,71 @@ export default Vue.extend({
 
     }
 
+
+    setInterval(() => {
+
+      let currentHour = moment().format("H");
+      let currentMonth = moment().month() + 1;
+
+      if (this.$session.get("hemisphere") == "northern") {
+        if (this.creature.availability.isAllYear) {
+
+          if (this.creature.availability.isAllDay) {
+            this.isAvailable = true;
+          } else {
+            this.creature.availability["time-array"].forEach((hour) => {
+              if (hour == currentHour) {
+                this.isAvailable = true;
+              }
+            });
+          }
+
+        } else {
+
+          this.creature.availability["month-array-northern"].forEach((month) => {
+            if (month == currentMonth) {
+              this.creature.availability["time-array"].forEach((hour) => {
+                if (hour == currentHour) {
+                  this.isAvailable = true;
+                }
+              });
+            }
+          });
+
+        }
+
+      } else {
+
+        if (this.creature.availability.isAllYear) {
+
+          if (this.creature.availability.isAllDay) {
+            this.isAvailable = true;
+          } else {
+            this.creature.availability["time-array"].forEach((hour) => {
+              if (hour == currentHour) {
+                this.isAvailable = true;
+              }
+            });
+          }
+
+        } else {
+
+          this.creature.availability["month-array-southern"].forEach((month) => {
+            if (month == currentMonth) {
+              this.creature.availability["time-array"].forEach((hour) => {
+                if (hour == currentHour) {
+                  this.isAvailable = true;
+                }
+              });
+            }
+          });
+
+        }
+
+      }
+
+    }, 1000);
+
   }
 
 })
@@ -300,5 +361,11 @@ export default Vue.extend({
     transition: 0.1s ease-in-out;
     color: lighten(rgb(142, 211, 85), 20%);
   }
+}
+
+#unavailable,
+#available {
+  font-size: 20px;
+  color: rgb(85, 175, 211);
 }
 </style>

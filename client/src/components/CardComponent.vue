@@ -1,7 +1,7 @@
 <template>
   <div id="card">
     <div v-if="loggedIn == true">
-      <ModifierListComponent v-bind:creatureType="creatureType" v-bind:creature="creature"></ModifierListComponent>
+      <ModifierListComponent :creatureType="creatureType" :creature="creature" v-if="creature"></ModifierListComponent>
     </div>
 
     <div id="picture-and-more">
