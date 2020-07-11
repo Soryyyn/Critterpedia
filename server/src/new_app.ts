@@ -69,6 +69,11 @@ let userSchema = new Schema({
             favorited: Boolean
         }
     ],
+    hemisphere: {
+        type: String,
+        default: "Northern",
+        required: true
+    }
 });
 
 // define model
@@ -193,18 +198,18 @@ app.get("/bugs/:userid", (req, res) => {
 //
 
 // limit express posts
+// 1 post per ip in 1 second
 app.use(rateLimit({
-    windowMs: 60 * 1000, // 1 minute
-    max: 10 // limit each IP to 100 posts
+    windowMs: 1000,
+    max: 1
 }));
 
 app.post("/fish", async (req, res) => {
 
-    // TODO: change "catched" to "caught" here and client
     let changesToFish = {
-        user: req.body.userid,
-        fishId: req.body.fishId,
-        caught: req.body.catched,
+        user: req.body.userId,
+        fish: req.body.fish,
+        caught: req.body.caught,
         favorited: req.body.favorited
     }
 
@@ -213,10 +218,10 @@ app.post("/fish", async (req, res) => {
     // else insert new entry
     userCollection.findOneAndUpdate({
         _id: changesToFish.user,
-        "fish.fish": changesToFish.fishId
+        "fish.fish": changesToFish.fish
     }, {
         $set: {
-            "fish.$.fish": changesToFish.fishId,
+            "fish.$.fish": changesToFish.fish,
             "fish.$.caught": changesToFish.caught,
             "fish.$.favorited": changesToFish.favorited,
         }
@@ -238,7 +243,7 @@ app.post("/fish", async (req, res) => {
                 }, {
                     $push: {
                         fish: {
-                            fish: changesToFish.fishId,
+                            fish: changesToFish.fish,
                             caught: changesToFish.caught,
                             favorited: changesToFish.favorited,
                         }
@@ -256,7 +261,7 @@ app.post("/fish", async (req, res) => {
                         res.json({
                             status: "ok",
                             msg: "Added new entry for fish in user",
-                            error: doc
+                            data: doc
                         });
                     }
 
@@ -278,11 +283,10 @@ app.post("/fish", async (req, res) => {
 
 app.post("/bugs", async (req, res) => {
 
-    // TODO: change "catched" to "caught" here and client
     let changesToBugs = {
-        user: req.body.userid,
+        user: req.body.userId,
         bugId: req.body.bugId,
-        caught: req.body.catched,
+        caught: req.body.caught,
         favorited: req.body.favorited
     }
 
@@ -360,7 +364,8 @@ app.post("/signup", async (req, res) => {
     let data = {
         nickname: filter.clean(req.body.nickname.toString()),
         email: filter.clean(req.body.email.toString()),
-        password: filter.clean(req.body.password.toString())
+        password: filter.clean(req.body.password.toString()),
+        hemisphere: req.body.hemisphere.toString()
     };
 
     // look in collection if user already exists

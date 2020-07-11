@@ -21,7 +21,6 @@
           v-model="password"
           placeholder="tr33-Branch"
         />
-        <!-- TODO: if something is empty give error or disable -->
         <button id="signin_button" type="submit">Sign in</button>
         <p id="signup">
           or sign up
@@ -46,40 +45,52 @@ export default Vue.extend({
     }
   },
   methods: {
-    async signinUser() {
+    signinUser() {
       let salt = bcrypt.genSaltSync();
 
-      if (this.email.length != 0 || this.password.length != 0) {
 
-        let user = {
-          email: this.email,
-          password: this.password
-        }
+      let user = {
+        email: this.email,
+        password: this.password
+      }
 
-        if (user.password != undefined) {
-          const response = await auth.postSignin(user);
+      if (user.password != "" || user.password != undefined) {
 
-          if (response.data.hash != undefined) {
-            if (bcrypt.compareSync(this.password, response.data.hash)) {
-              // start session and save nickname of user
-              // move user to previous route (fish, bugs, etc.)
-              this.$session.start();
-              this.$session.set("userid", response.data.userid);
-              this.$router.push({ name: 'Home' })
+        auth.postSignin(user)
+          .then((response) => {
+
+            if (response.data.status == "ok") {
+              if (bcrypt.compareSync(user.password, response.data.user.password)) {
+                //   start session and save nickname of user
+                // move user to previous route (fish, bugs, etc.)
+                this.$session.start();
+                this.$session.set("userid", response.data.user._id);
+                this.$router.push({ name: 'Home' })
+              } else {
+                this.$notify({
+                  type: "error",
+                  title: 'Error on sign in',
+                  text: "Password not valid",
+                  duration: 5000
+                });
+              }
+            } else {
+              this.$notify({
+                type: "error",
+                title: 'Error on sign in',
+                text: response.data.msg,
+                duration: 5000
+              });
             }
-          } else {
-            this.$notify({
-              type: "error",
-              title: 'Error on sign in',
-              text: response.data,
-              duration: 5000
-            });
-          }
-        }
 
+          })
+          .catch((err) => {
+            console.log(err);
+          })
       }
 
     }
+
   }
 })
 </script>
