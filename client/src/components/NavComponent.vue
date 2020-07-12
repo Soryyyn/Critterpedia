@@ -45,13 +45,13 @@ ul {
 
 ul li {
   padding: 10px;
-  background: lighten(rgb(255, 239, 225), 8%);
+  background: var(--mainColor_Light_Lighter);
   position: relative;
-  border: 2px solid darken(rgb(255, 239, 225), 5%);
+  border: 2px solid var(--mainColor_Light_Accent);
   border-radius: 10px;
   text-decoration: none;
   cursor: pointer;
-  box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+  box-shadow: 5px 5px 0px var(--mainColor_Light_Accent);
   transition: 0.1s ease-in-out;
   color: rgba(28, 26, 31, 1);
   font-size: 20px;
@@ -67,8 +67,8 @@ ul li {
   }
 
   &.router-link-exact-active {
-    border: 2px solid darken(rgb(255, 239, 225), 15%);
-    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+    border: 2px solid var(--mainColor_Light_Active);
+    box-shadow: 5px 5px 0px var(--mainColor_Light_Active);
   }
 
   &:hover {
@@ -79,7 +79,7 @@ ul li {
   .fa-home,
   .fa-fish,
   .fa-bug {
-    color: rgba(28, 26, 31, 1);
+    color: var(--fontColor);
     font-size: 20px;
     margin-right: 5px;
   }
