@@ -1,6 +1,16 @@
 <template>
-  <div v-bind:id="pageName" :style="wrapperStyle">
+  <div v-bind:id="pageName + '_grid'" :style="wrapperStyle">
     <h1 :style="titleStyle">{{pageName}}</h1>
+
+    <div id="sorters">
+      <button :style="getStyle(this.sortedByNumber)" @click="setSortedByNumber()">
+        <i class="fas fa-sort-numeric-up"></i> Number
+      </button>
+      <button :style="getStyle(this.sortedByHighestPrice)" @click="setSortedByHighestPrice()">
+        <i class="fas fa-dollar-sign"></i> Highest Price
+      </button>
+    </div>
+
     <ul id="grid">
       <CardComponent
         v-for="creature in creatures"
@@ -17,6 +27,7 @@
 import Vue from 'vue'
 
 import CardComponent from "@/components/CardComponent.vue";
+import * as _ from "lodash";
 
 export default Vue.extend({
   name: "GridComponent",
@@ -29,6 +40,14 @@ export default Vue.extend({
     "creatureType",
     "loggedIn"
   ],
+
+  data() {
+    return {
+      sortedByNumber: true,
+      sortedByHighestPrice: false
+    }
+  },
+
   computed: {
     wrapperStyle() {
       return `
@@ -40,11 +59,12 @@ export default Vue.extend({
 
     titleStyle() {
       let style = `
-            font-size: 64px;
+            font-size: 72px;
             text-align: center;
-            margin-bottom: 1.5rem;
             -webkit-text-stroke-width: 2px;
             font-family: "Biko Black";
+            margin-bottom: -15px;
+            letter-spacing: 4px;
         `;
 
       if (this.pageName == "Fish") {
@@ -62,8 +82,52 @@ export default Vue.extend({
       }
 
       return style;
+    },
+
+  },
+
+  methods: {
+
+    setSortedByNumber() {
+      if (this.sortedByNumber) {
+        this.sortedByNumber = false;
+      } else {
+        this.sortedByNumber = true;
+        this.sortedByHighestPrice = false;
+
+        // @ts-ignore
+        this.creatures = _.sortBy(this.creatures, "id", "asc");
+      }
+    },
+
+    setSortedByHighestPrice() {
+      if (this.sortedByHighestPrice) {
+        this.sortedByHighestPrice = false;
+      } else {
+        this.sortedByHighestPrice = true;
+        this.sortedByNumber = false;
+
+        // @ts-ignore
+        this.creatures = _.sortBy(this.creatures, "price", "asc").reverse();
+      }
+    },
+
+    getStyle(sortMethod: boolean) {
+      if (sortMethod) {
+        return `
+          background: var(--mainColor_Light_Accent);
+          border: 2px solid var(--mainColor_Light_Active);
+          box-shadow: 5px 5px 0px var(--mainColor_Light_Active);
+        `;
+      } else {
+        return `
+          background: var(--mainColor_Light_Lighter);
+        `;
+      }
     }
-  }
+
+  },
+
 });
 </script>
 
@@ -73,5 +137,42 @@ ul {
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 20px;
   margin-bottom: 1.5rem;
+}
+
+#sorters {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  button {
+    margin: 20px 10px;
+    padding: 10px;
+    background: var(--mainColor_Light_Lighter);
+    border: 2px solid var(--mainColor_Light_Accent);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px var(--mainColor_Light_Accent);
+    transition: 0.1s ease-in-out;
+    color: rgba(28, 26, 31, 1);
+    font-size: 16px;
+    font-family: "Biko Bold";
+    user-select: none;
+    cursor: pointer;
+
+    i {
+      margin-right: 5px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      transition: 0.1s ease-in-out;
+      transform: scale(1.05);
+      border: 2px solid var(--mainColor_Light_Active);
+      box-shadow: 5px 5px 0px var(--mainColor_Light_Active);
+    }
+  }
 }
 </style>

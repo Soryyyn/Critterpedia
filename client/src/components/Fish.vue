@@ -1,17 +1,18 @@
 <template>
-  <GridComponent
-    pageName="Fish"
-    v-bind:creatures="this.fishes"
-    creatureType="fish"
-    v-bind:loggedIn="this.loggedIn"
-  ></GridComponent>
+  <div id="fish">
+    <GridComponent
+      pageName="Fish"
+      v-bind:creatures="this.fishes"
+      creatureType="fish"
+      v-bind:loggedIn="this.loggedIn"
+    ></GridComponent>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
 import auth from "../services/auth";
-import * as _ from "lodash";
 
 import GridComponent from "@/components/GridComponent.vue";
 
@@ -37,8 +38,10 @@ export default Vue.extend({
       auth.getFish()
         .then((response) => {
           if (response.data.status == "ok") {
-            this.fishes = _.sortBy(response.data.fish, "id", "asc");
+            // @ts-ignore
+            this.fishes = response.data.fish;
           } else {
+            // @ts-ignore
             this.$notify({
               type: "error",
               title: "Error",
@@ -58,6 +61,7 @@ export default Vue.extend({
   created() {
     this.getAllFish();
 
+    // @ts-ignore
     if (this.$session.exists()) {
       this.loggedIn = true;
     }

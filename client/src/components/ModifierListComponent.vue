@@ -39,7 +39,7 @@
 import Vue from 'vue'
 
 import auth from "../services/auth";
-import * as moment from "moment";
+import moment from "moment";
 
 export default Vue.extend({
   name: "ModifierListComponent",
@@ -64,6 +64,7 @@ export default Vue.extend({
       if (this.isFavorited) {
         this.isFavorited = false;
 
+        // @ts-ignore
         this.$notify({
           type: "favorite",
           title: 'Not favorited anymore!',
@@ -73,6 +74,7 @@ export default Vue.extend({
       } else {
         this.isFavorited = true;
 
+        // @ts-ignore
         this.$notify({
           type: "favorite",
           title: 'Favorited!',
@@ -144,6 +146,7 @@ export default Vue.extend({
       } else {
         this.isCaught = true;
 
+        // @ts-ignore
         this.$notify({
           type: "catching",
           title: 'Catched!',
@@ -252,17 +255,17 @@ export default Vue.extend({
 
 
     setInterval(() => {
+      let currentHour: Number = parseInt(moment().format("H"));
+      let currentMonth: Number = moment().month() + 1;
 
-      let currentHour = moment().format("H");
-      let currentMonth = moment().month() + 1;
-
+      // @ts-ignore
       if (this.$session.get("hemisphere") == "northern") {
         if (this.creature.availability.isAllYear) {
 
           if (this.creature.availability.isAllDay) {
             this.isAvailable = true;
           } else {
-            this.creature.availability["time-array"].forEach((hour) => {
+            this.creature.availability["time-array"].forEach((hour: Number) => {
               if (hour == currentHour) {
                 this.isAvailable = true;
               }
@@ -271,9 +274,9 @@ export default Vue.extend({
 
         } else {
 
-          this.creature.availability["month-array-northern"].forEach((month) => {
+          this.creature.availability["month-array-northern"].forEach((month: Number) => {
             if (month == currentMonth) {
-              this.creature.availability["time-array"].forEach((hour) => {
+              this.creature.availability["time-array"].forEach((hour: Number) => {
                 if (hour == currentHour) {
                   this.isAvailable = true;
                 }
@@ -290,7 +293,7 @@ export default Vue.extend({
           if (this.creature.availability.isAllDay) {
             this.isAvailable = true;
           } else {
-            this.creature.availability["time-array"].forEach((hour) => {
+            this.creature.availability["time-array"].forEach((hour: Number) => {
               if (hour == currentHour) {
                 this.isAvailable = true;
               }
@@ -299,9 +302,9 @@ export default Vue.extend({
 
         } else {
 
-          this.creature.availability["month-array-southern"].forEach((month) => {
+          this.creature.availability["month-array-southern"].forEach((month: Number) => {
             if (month == currentMonth) {
-              this.creature.availability["time-array"].forEach((hour) => {
+              this.creature.availability["time-array"].forEach((hour: Number) => {
                 if (hour == currentHour) {
                   this.isAvailable = true;
                 }
@@ -334,7 +337,7 @@ export default Vue.extend({
 #unfavorited,
 #favorited {
   font-size: 20px;
-  color: rgb(255, 205, 67);
+  color: var(--yellowMain);
   transition: 0.1s ease-in-out;
 
   &:hover {
@@ -343,14 +346,14 @@ export default Vue.extend({
 
   &:active {
     transition: 0.1s ease-in-out;
-    color: lighten(rgb(255, 205, 67), 20%);
+    color: var(--yellowLighter);
   }
 }
 
 #uncaught,
 #caught {
   font-size: 20px;
-  color: rgb(142, 211, 85);
+  color: var(--bugsTitleColor);
   transition: 0.1s ease-in-out;
 
   &:hover {
@@ -359,13 +362,13 @@ export default Vue.extend({
 
   &:active {
     transition: 0.1s ease-in-out;
-    color: lighten(rgb(142, 211, 85), 20%);
+    color: var(--bugsTitleLighter);
   }
 }
 
 #unavailable,
 #available {
   font-size: 20px;
-  color: rgb(85, 175, 211);
+  color: var(--fishTitleColor);
 }
 </style>

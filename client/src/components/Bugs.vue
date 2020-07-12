@@ -37,8 +37,10 @@ export default Vue.extend({
       auth.getBugs()
         .then((response) => {
           if (response.data.status == "ok") {
-            this.bugs = _.sortBy(response.data.bugs, "id", "asc");
+            // @ts-ignore
+            this.bugs = response.data.bugs;
           } else {
+            // @ts-ignore
             this.$notify({
               type: "error",
               title: "Error",
@@ -58,6 +60,7 @@ export default Vue.extend({
   created() {
     this.getAllBugs();
 
+    // @ts-ignore
     if (this.$session.exists()) {
       this.loggedIn = true;
     }

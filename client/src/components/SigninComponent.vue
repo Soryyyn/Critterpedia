@@ -61,13 +61,19 @@ export default Vue.extend({
 
             if (response.data.status == "ok") {
               if (bcrypt.compareSync(user.password, response.data.user.password)) {
+
                 //   start session and save nickname of user
                 // move user to previous route (fish, bugs, etc.)
+                // @ts-ignore
                 this.$session.start();
+                // @ts-ignore
                 this.$session.set("userid", response.data.user._id);
+                // @ts-ignore
                 this.$session.set("hemisphere", response.data.user.hemisphere);
+                // @ts-ignore
                 this.$router.push({ name: 'Home' })
               } else {
+                // @ts-ignore
                 this.$notify({
                   type: "error",
                   title: 'Error on sign in',
@@ -76,6 +82,7 @@ export default Vue.extend({
                 });
               }
             } else {
+              // @ts-ignore
               this.$notify({
                 type: "error",
                 title: 'Error on sign in',

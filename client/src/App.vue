@@ -45,16 +45,30 @@ export default Vue.extend({
 }
 
 :root {
-  --fontColor: black;
-  --fontLighterColor: rgb(51, 51, 51);
+  --mainColor_Light_Main: rgb(255, 239, 225);
+  --mainColor_Light_Lighter: rgb(255, 250, 246);
+  --mainColor_Light_Accent: rgb(255, 218, 185);
+  --mainColor_Light_Active: rgb(255, 189, 132);
+  --mainColor_Light_Scrollbar: rgb(247, 140, 47);
+  --mainColor_Light_CardNumber: rgba(255, 218, 185, 0.3);
+
+  --fontColor: rgb(28, 26, 31);
+  --fontShadow: rgba(28, 26, 31, 0.3);
+  --fontLighterColor: rgb(75, 71, 82);
 
   --fishTitleColor: rgb(85, 175, 211);
   --fishTitleAccent: rgb(51, 103, 124);
   --fishTitleShadow: rgba(51, 103, 124, 0.3);
 
   --bugsTitleColor: rgb(142, 211, 85);
+  --bugsTitleLighter: rgb(185, 243, 137);
   --bugsTitleAccent: rgb(82, 122, 48);
   --bugsTitleShadow: rgba(82, 122, 48, 0.3);
+
+  --yellowMain: rgb(255, 205, 67);
+  --yellowLighter: rgb(245, 218, 146);
+  --yellowAccent: rgb(172, 138, 45);
+  --yellowShadow: rgba(172, 138, 45, 0.3);
 }
 
 * {
@@ -66,7 +80,7 @@ body,
 html {
   height: 100%;
   width: 100%;
-  background: rgb(255, 239, 225);
+  background: var(--mainColor_Light_Main);
 }
 
 body {
@@ -77,7 +91,7 @@ body {
     background: none;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: darken(rgb(255, 239, 225), 30%);
+    background-color: var(--mainColor_Light_Scrollbar);
     border-radius: 20px;
   }
 }

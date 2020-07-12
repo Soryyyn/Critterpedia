@@ -78,11 +78,16 @@ export default Vue.extend({
         auth.postSignup(newUser)
           .then((response) => {
             if (response.data.status == "ok") {
+              // @ts-ignore
               this.$session.start();
+              // @ts-ignore
               this.$session.set("userid", response.data.user._id);
+              // @ts-ignore
               this.$session.set("hemisphere", response.data.user.hemisphere);
+              // @ts-ignore
               this.$router.push({ name: 'Home' })
             } else {
+              // @ts-ignore
               this.$notify({
                 type: "error",
                 title: "Error",
@@ -96,6 +101,7 @@ export default Vue.extend({
           });
 
       } else {
+        // @ts-ignore
         this.$notify({
           type: "error",
           title: "Error",
