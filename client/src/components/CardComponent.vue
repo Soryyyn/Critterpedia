@@ -115,7 +115,7 @@ export default Vue.extend({
   border-radius: 10px;
   box-shadow: 5px 5px 0px var(--mainColor_Light_Accent);
   z-index: 100;
-  min-height: 250px;
+  min-height: 300px;
 
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -140,9 +140,9 @@ export default Vue.extend({
   #number {
     font-family: "Biko Bold";
     position: absolute;
-    top: -28px;
-    right: 5px;
-    font-size: 200px;
+    bottom: 0;
+    right: 15px;
+    font-size: 54px;
     color: var(--mainColor_Light_CardNumber);
     z-index: -5;
   }

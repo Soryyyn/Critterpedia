@@ -139,6 +139,24 @@ ul {
   margin-bottom: 1.5rem;
 }
 
+@media screen and (max-width: 1200px) {
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  ul {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+    margin-bottom: 1.5rem;
+  }
+}
+
 #sorters {
   list-style: none;
   display: flex;
