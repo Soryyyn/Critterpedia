@@ -50,7 +50,7 @@ export default Vue.extend({
   --mainColor_Light_Accent: rgb(255, 218, 185);
   --mainColor_Light_Active: rgb(255, 189, 132);
   --mainColor_Light_Scrollbar: rgb(247, 140, 47);
-  --mainColor_Light_CardNumber: rgba(255, 218, 185, 0.3);
+  --mainColor_Light_CardNumber: rgba(255, 218, 185, 0.4);
 
   --fontColor: rgb(28, 26, 31);
   --fontShadow: rgba(28, 26, 31, 0.3);
