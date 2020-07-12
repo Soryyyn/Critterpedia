@@ -109,11 +109,11 @@ export default Vue.extend({
 #card {
   list-style: none;
   position: relative;
-  background: lighten(rgb(255, 239, 225), 5%);
+  background: var(--mainColor_Light_Lighter);
   padding: 15px;
-  border: 2px solid darken(rgb(255, 239, 225), 5%);
+  border: 2px solid var(--mainColor_Light_Accent);
   border-radius: 10px;
-  box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+  box-shadow: 5px 5px 0px var(--mainColor_Light_Accent);
   z-index: 100;
   min-height: 250px;
 
@@ -143,7 +143,7 @@ export default Vue.extend({
     top: -28px;
     right: 5px;
     font-size: 200px;
-    color: darken(rgba(255, 239, 225, 0.5), 1%);
+    color: var(--mainColor_Light_CardNumber);
     z-index: -5;
   }
 
@@ -155,7 +155,7 @@ export default Vue.extend({
 
     p {
       text-align: center;
-      font-size: 16px;
+      font-size: 18px;
     }
 
     p:nth-child(1) {
@@ -163,9 +163,12 @@ export default Vue.extend({
     }
 
     p:nth-child(2) {
+      font-size: 16px;
       margin-top: 2px;
       font-style: italic;
+      color: var(--fontLighterColor);
       opacity: 0.6;
+      letter-spacing: 0.2px;
     }
   }
 }
@@ -181,6 +184,7 @@ export default Vue.extend({
     font-family: "Biko Regular";
     font-size: 18px;
     padding: 5px;
+    color: var(--fontColor);
   }
 
   .overlay {
