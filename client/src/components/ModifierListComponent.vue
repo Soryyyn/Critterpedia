@@ -336,7 +336,7 @@ export default Vue.extend({
 
 #unfavorited,
 #favorited {
-  font-size: 20px;
+  font-size: 24px;
   color: var(--yellowMain);
   transition: 0.1s ease-in-out;
 
@@ -352,7 +352,7 @@ export default Vue.extend({
 
 #uncaught,
 #caught {
-  font-size: 20px;
+  font-size: 24px;
   color: var(--bugsTitleColor);
   transition: 0.1s ease-in-out;
 
@@ -368,7 +368,7 @@ export default Vue.extend({
 
 #unavailable,
 #available {
-  font-size: 20px;
+  font-size: 24px;
   color: var(--fishTitleColor);
 }
 </style>

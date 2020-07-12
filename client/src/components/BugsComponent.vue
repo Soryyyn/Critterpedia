@@ -18,7 +18,7 @@ import * as _ from "lodash";
 import GridComponent from "@/components/GridComponent.vue";
 
 export default Vue.extend({
-  name: "Bugs",
+  name: "BugsComponent",
 
   components: {
     "GridComponent": GridComponent

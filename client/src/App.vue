@@ -77,7 +77,8 @@ export default Vue.extend({
 }
 
 body,
-html {
+html,
+#app {
   height: 100%;
   width: 100%;
   background: var(--mainColor_Light_Main);

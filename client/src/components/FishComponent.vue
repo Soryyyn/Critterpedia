@@ -17,7 +17,7 @@ import auth from "../services/auth";
 import GridComponent from "@/components/GridComponent.vue";
 
 export default Vue.extend({
-  name: "Fish",
+  name: "FishComponent",
 
   components: {
     "GridComponent": GridComponent

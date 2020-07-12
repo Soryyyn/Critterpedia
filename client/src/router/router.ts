@@ -8,8 +8,6 @@ import FishComponent from '@/components/FishComponent.vue';
 import BugsComponent from '@/components/BugsComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import SigninComponent from '@/components/SigninComponent.vue';
-import Fish from "@/components/Fish.vue"
-import Bugs from "@/components/Bugs.vue"
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -27,7 +25,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/fish',
     name: 'Fish',
-    component: Fish,
+    component: FishComponent,
     meta: {
       title: "Fish | Critterpedia"
     }
@@ -35,7 +33,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/bugs',
     name: 'Bugs',
-    component: Bugs,
+    component: BugsComponent,
     meta: {
       title: "Bugs | Critterpedia"
     }

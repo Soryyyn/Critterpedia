@@ -132,7 +132,7 @@ export default Vue.extend({
 ul {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-gap: 15px;
   margin-bottom: 1.5rem;
 }
 
@@ -140,7 +140,7 @@ ul {
   ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-gap: 20px;
+    grid-gap: 15px;
     margin-bottom: 1.5rem;
   }
 }
@@ -149,7 +149,7 @@ ul {
   ul {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 20px;
+    grid-gap: 15px;
     margin-bottom: 1.5rem;
   }
 }
