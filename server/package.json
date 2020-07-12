@@ -25,7 +25,7 @@
     "typescript": "^3.9.5"
   },
   "scripts": {
-    "start": "nodemon dist/new_app.js"
+    "start": "nodemon dist/app.js"
   },
   "keywords": [],
   "author": "",
