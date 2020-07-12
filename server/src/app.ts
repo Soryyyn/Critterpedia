@@ -1,6 +1,8 @@
-// express & axios
+// express & axios, more
 import * as express from "express";
 import axios from "axios";
+import * as path from "path";
+import history = require('connect-history-api-fallback');
 
 // express plugins
 import * as bodyParser from "body-parser";
@@ -15,6 +17,7 @@ const app = express();
 app.use(morgan("combined")); // better logging
 app.use(bodyParser.json()); // used for parsing json request
 app.use(cors()); // security stuff
+app.use(history());
 
 // create bad word filter
 const filter = new Filter();
@@ -25,7 +28,7 @@ import mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // setup port & db connection for local or prod
-const PORT = process.env.port || 8081
+const PORT = process.env.PORT || 8081
 const CONNECTION_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/Critterpedia";
 
 // Connect MongoDB at default port 27017
@@ -78,6 +81,9 @@ let userSchema = new Schema({
 
 // define model
 export const userCollection = mongoose.model("users", userSchema);
+
+// serve vue static files
+app.use(express.static(path.join(__dirname, "..", "..", "client", "dist")))
 
 
 //

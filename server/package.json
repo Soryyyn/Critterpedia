@@ -7,6 +7,7 @@
     "axios": "^0.19.2",
     "bad-words": "^3.0.3",
     "body-parser": "^1.19.0",
+    "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.1.3",
@@ -24,9 +25,7 @@
     "nodemon": "^2.0.4",
     "typescript": "^3.9.5"
   },
-  "scripts": {
-    "start": "nodemon dist/app.js"
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC"
