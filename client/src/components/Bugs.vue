@@ -1,10 +1,12 @@
 <template>
-  <GridComponent
-    pageName="Bugs"
-    v-bind:creatures="this.bugs"
-    creatureType="bug"
-    v-bind:loggedIn="this.loggedIn"
-  ></GridComponent>
+  <div id="bugs" v-if="this.loaded">
+    <GridComponent
+      pageName="Bugs"
+      v-bind:creatures="this.bugs"
+      creatureType="bug"
+      v-bind:loggedIn="this.loggedIn"
+    ></GridComponent>
+  </div>
 </template>
 
 <script lang="ts">
@@ -25,7 +27,8 @@ export default Vue.extend({
   data() {
     return {
       bugs: [],
-      loggedIn: false
+      loggedIn: false,
+      loaded: false
     }
   },
 
@@ -39,6 +42,7 @@ export default Vue.extend({
           if (response.data.status == "ok") {
             // @ts-ignore
             this.bugs = response.data.bugs;
+            this.loaded = true;
           } else {
             // @ts-ignore
             this.$notify({
