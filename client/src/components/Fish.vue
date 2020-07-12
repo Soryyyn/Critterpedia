@@ -1,5 +1,5 @@
 <template>
-  <div id="fish">
+  <div id="fish" v-if="this.loaded">
     <GridComponent
       pageName="Fish"
       v-bind:creatures="this.fishes"
@@ -26,7 +26,8 @@ export default Vue.extend({
   data() {
     return {
       fishes: [],
-      loggedIn: false
+      loggedIn: false,
+      loaded: false
     }
   },
 
@@ -40,6 +41,7 @@ export default Vue.extend({
           if (response.data.status == "ok") {
             // @ts-ignore
             this.fishes = response.data.fish;
+            this.loaded = true;
           } else {
             // @ts-ignore
             this.$notify({

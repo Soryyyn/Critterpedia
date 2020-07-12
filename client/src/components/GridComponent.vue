@@ -13,7 +13,7 @@
 
     <ul id="grid">
       <CardComponent
-        v-for="creature in creatures"
+        v-for="creature in this.copyOfCreatures"
         v-bind:key="creature.id"
         v-bind:creature="creature"
         v-bind:creatureType="creatureType"
@@ -44,7 +44,8 @@ export default Vue.extend({
   data() {
     return {
       sortedByNumber: true,
-      sortedByHighestPrice: false
+      sortedByHighestPrice: false,
+      copyOfCreatures: { ...this.creatures }
     }
   },
 
@@ -89,26 +90,22 @@ export default Vue.extend({
   methods: {
 
     setSortedByNumber() {
-      if (this.sortedByNumber) {
-        this.sortedByNumber = false;
-      } else {
+      if (!this.sortedByNumber) {
         this.sortedByNumber = true;
         this.sortedByHighestPrice = false;
 
         // @ts-ignore
-        this.creatures = _.sortBy(this.creatures, "id", "asc");
+        this.copyOfCreatures = _.sortBy(this.copyOfCreatures, "id", "asc");
       }
     },
 
     setSortedByHighestPrice() {
-      if (this.sortedByHighestPrice) {
-        this.sortedByHighestPrice = false;
-      } else {
+      if (!this.sortedByHighestPrice) {
         this.sortedByHighestPrice = true;
         this.sortedByNumber = false;
 
         // @ts-ignore
-        this.creatures = _.sortBy(this.creatures, "price", "asc").reverse();
+        this.copyOfCreatures = _.sortBy(this.copyOfCreatures, "price", "asc").reverse();
       }
     },
 
