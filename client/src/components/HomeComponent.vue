@@ -64,7 +64,7 @@ export default Vue.extend({
 
 #wrapper {
   height: 100%;
-  margin-top: 200px;
+  margin-top: 10%;
 }
 
 #logo {
@@ -86,11 +86,9 @@ h1 {
   margin-bottom: 1rem;
 
   #critterpedia {
-    color: var(--yellowMain);
+    color: var(--yellowTitle);
     font-family: "Biko Black";
-    text-shadow: 3px 3px 0px var(--yellowShadow);
-    -webkit-text-stroke-width: 2px;
-    -webkit-text-stroke-color: var(--yellowAccent);
+    text-shadow: 3px 3px 0px var(--fontShadow);
   }
 }
 
@@ -150,5 +148,59 @@ h1 {
 #twitter:active {
   transition: 0.05s ease-in-out;
   color: var(--fishTitleColor);
+}
+
+// smaller (ipads, etc)
+@media screen and (min-width: 451px) and (max-width: 1200px) {
+  #wrapper {
+    height: 100%;
+    margin-top: 10%;
+  }
+
+  #logo {
+    width: 100px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 42px;
+  }
+
+  #desc {
+    font-size: 18px;
+  }
+
+  #dev-links {
+    div {
+      font-size: 20px;
+    }
+  }
+}
+
+// phones
+@media screen and (max-width: 450px) {
+  #wrapper {
+    height: 100%;
+    margin-top: 10%;
+  }
+
+  #logo {
+    width: 110px;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  #desc {
+    font-size: 16px;
+  }
+
+  #dev-links {
+    div {
+      font-size: 18px;
+    }
+  }
 }
 </style>

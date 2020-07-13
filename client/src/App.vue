@@ -53,7 +53,7 @@ export default Vue.extend({
   --mainColor_Light_CardNumber: rgba(255, 218, 185, 0.4);
 
   --fontColor: rgb(28, 26, 31);
-  --fontShadow: rgba(28, 26, 31, 0.3);
+  --fontShadow: rgba(28, 26, 31, 0.2);
   --fontLighterColor: rgb(75, 71, 82);
 
   --fishTitleColor: rgb(85, 175, 211);
@@ -69,6 +69,7 @@ export default Vue.extend({
   --yellowLighter: rgb(245, 218, 146);
   --yellowAccent: rgb(172, 138, 45);
   --yellowShadow: rgba(172, 138, 45, 0.3);
+  --yellowTitle: rgb(248, 191, 33);
 }
 
 * {
