@@ -14,10 +14,13 @@ import Filter = require("bad-words");
 // create express app
 // and load plugins
 const app = express();
-app.use(morgan("combined")); // better logging
 app.use(bodyParser.json()); // used for parsing json request
 app.use(cors()); // security stuff
 app.use(history());
+
+if (process.env.NODE_ENV != "production") {
+    app.use(morgan("dev")); // better logging
+}
 
 // create bad word filter
 const filter = new Filter();

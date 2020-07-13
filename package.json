@@ -3,8 +3,9 @@
     "build-client": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "install-server": "cd server && npm install && tsc",
-    "server-watch-typescript": "tsc --watch",
-    "dev": "nodemon server/dist/app.js",
+    "server-watch-typescript": "cd server && tsc --watch",
+    "dev-client": "cd client && npm run serve",
+    "dev-server": "nodemon server/dist/app.js",
     "start": "node server/dist/app.js",
     "heroku-postbuild": "npm run build-client && npm run install-client && npm run install-server"
   }
