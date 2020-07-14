@@ -371,4 +371,21 @@ export default Vue.extend({
   font-size: 24px;
   color: var(--fishTitleColor);
 }
+
+@media screen and (max-width: 450px) {
+  #unfavorited,
+  #favorited {
+    font-size: 22px;
+  }
+
+  #uncaught,
+  #caught {
+    font-size: 22px;
+  }
+
+  #unavailable,
+  #available {
+    font-size: 22px;
+  }
+}
 </style>

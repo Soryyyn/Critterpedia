@@ -96,12 +96,15 @@ ul li {
 
 @media screen and (max-width: 450px) {
   ul li {
-    i {
+    .fa-home,
+    .fa-fish,
+    .fa-bug,
+    .fa-user {
       margin-right: 0 !important;
+      font-size: 24px !important;
     }
 
     p {
-      /* Hide the text. */
       text-indent: 100%;
       white-space: nowrap;
       overflow: hidden;

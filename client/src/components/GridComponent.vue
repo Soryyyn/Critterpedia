@@ -4,10 +4,12 @@
 
     <div id="sorters">
       <button :style="getStyle(this.sortedByNumber)" @click="setSortedByNumber()">
-        <i class="fas fa-sort-numeric-up"></i> Number
+        <i class="fas fa-sort-numeric-up"></i>
+        <p>Number</p>
       </button>
       <button :style="getStyle(this.sortedByHighestPrice)" @click="setSortedByHighestPrice()">
-        <i class="fas fa-dollar-sign"></i> Highest Price
+        <i class="fas fa-dollar-sign"></i>
+        <p>Highest Price</p>
       </button>
     </div>
 
@@ -65,7 +67,6 @@ export default Vue.extend({
             -webkit-text-stroke-width: 2px;
             font-family: "Biko Black";
             margin-bottom: -15px;
-            letter-spacing: 4px;
         `;
 
       if (this.pageName == "Fish") {
@@ -136,7 +137,7 @@ ul {
   margin-bottom: 1.5rem;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (min-width: 451px) and (max-width: 1200px) {
   ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -145,12 +146,31 @@ ul {
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 450px) {
   ul {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 15px;
     margin-bottom: 1.5rem;
+  }
+
+  button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 20px 5px !important;
+
+    i {
+      margin-right: 0 !important;
+      font-size: 20px !important;
+    }
+
+    p {
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 0 !important;
+    }
   }
 }
 
@@ -173,9 +193,20 @@ ul {
     font-family: "Biko Bold";
     user-select: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    min-width: 40px;
+    text-align: center;
 
     i {
       margin-right: 5px;
+      font-size: 20px;
+      vertical-align: middle;
+    }
+
+    p {
+      font-size: 20px;
     }
 
     &:focus {

@@ -90,7 +90,7 @@ body {
     width: 6px;
   }
   &::-webkit-scrollbar-track {
-    background: none;
+    background: var(--mainColor_Light_Main);
   }
   &::-webkit-scrollbar-thumb {
     background-color: var(--mainColor_Light_Scrollbar);

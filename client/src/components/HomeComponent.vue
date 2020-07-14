@@ -89,6 +89,8 @@ h1 {
     color: var(--yellowTitle);
     font-family: "Biko Black";
     text-shadow: 3px 3px 0px var(--fontShadow);
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: darken(rgba(255, 205, 67, 1), 30%);
   }
 }
 
@@ -163,7 +165,7 @@ h1 {
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 46px;
   }
 
   #desc {
@@ -190,11 +192,11 @@ h1 {
   }
 
   h1 {
-    font-size: 36px;
+    font-size: 40px;
   }
 
   #desc {
-    font-size: 16px;
+    font-size: 18px;
   }
 }
 </style>

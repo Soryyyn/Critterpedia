@@ -206,13 +206,6 @@ app.get("/bugs/:userid", (req, res) => {
 // POST-REQUESTS
 //
 
-// limit express posts
-// 1 post per ip in 1 second
-app.use(rateLimit({
-    windowMs: 1000,
-    max: 1
-}));
-
 app.post("/fish", async (req, res) => {
 
     let changesToFish = {
@@ -366,6 +359,13 @@ app.post("/bugs", async (req, res) => {
     });
 
 });
+
+// limit express posts
+// 1 post per ip in 1 second
+app.use(rateLimit({
+    windowMs: 1000,
+    max: 1
+}));
 
 app.post("/signup", async (req, res) => {
 
