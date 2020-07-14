@@ -3,15 +3,15 @@
     <ul>
       <router-link tag="li" :to="{ name: 'Home'}">
         <i class="fas fa-home"></i>
-        Home
+        <p>Home</p>
       </router-link>
       <router-link tag="li" :to="{ name: 'Fish'}">
         <i class="fas fa-fish"></i>
-        Fish
+        <p>Fish</p>
       </router-link>
       <router-link tag="li" :to="{ name: 'Bugs'}">
         <i class="fas fa-bug"></i>
-        Bugs
+        <p>Bugs</p>
       </router-link>
       <router-link tag="li" :to="{ name: 'Signin'}">
         <i class="fas fa-user"></i>
@@ -57,6 +57,9 @@ ul li {
   font-size: 20px;
   font-family: "Biko Bold";
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 
   &:not(:first-child):not(:last-child) {
     margin-left: 10px;
@@ -82,11 +85,28 @@ ul li {
     color: var(--fontColor);
     font-size: 20px;
     margin-right: 5px;
+    vertical-align: middle;
   }
 
   .fa-user {
     margin-left: 2px;
     margin-right: 2px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  ul li {
+    i {
+      margin-right: 0 !important;
+    }
+
+    p {
+      /* Hide the text. */
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 0;
+    }
   }
 }
 </style>

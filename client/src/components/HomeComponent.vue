@@ -196,11 +196,5 @@ h1 {
   #desc {
     font-size: 16px;
   }
-
-  #dev-links {
-    div {
-      font-size: 18px;
-    }
-  }
 }
 </style>
