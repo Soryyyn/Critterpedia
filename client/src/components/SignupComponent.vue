@@ -1,9 +1,10 @@
 <template>
   <div id="signup">
-    <h1>
-      <span>Sign up</span> for an account
-    </h1>
     <div id="wrapper">
+      <h1>
+        <span>Sign up</span> for an account
+      </h1>
+
       <form @submit.prevent="signupUser()">
         <label for="nickname">Nickname</label>
         <input type="text" name="nickname" id="nickname" v-model="nickname" placeholder="Steve" />
@@ -26,7 +27,7 @@
 
         <label>
           Hemisphere
-          <i>(changeable in settings later)</i>
+          <i>(changeable later)</i>
         </label>
 
         <select v-model="hemisphere">
@@ -116,10 +117,15 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 #signup {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -140,90 +146,86 @@ h1 {
 }
 
 #wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
   height: 100%;
   margin-top: 2rem;
+}
 
-  form {
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+form {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 
-    label,
-    input {
-      display: table-row;
-    }
+  label,
+  input {
+    display: table-row;
+  }
 
-    label {
-      font-size: 22px;
-      font-family: "Biko Bold";
-      opacity: 0.6;
-    }
+  label {
+    font-size: 22px;
+    font-family: "Biko Bold";
+    opacity: 0.6;
+  }
 
-    .smaller {
-      font-size: 18px;
-    }
+  .smaller {
+    font-size: 18px;
+  }
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      font-size: 22px;
-      margin-top: 5px;
-      margin-bottom: 25px;
-      font-family: "Biko Regular";
-      border: 2px solid darken(rgb(255, 239, 225), 5%);
-      border-radius: 10px;
-      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
-      background: lighten(rgb(255, 239, 225), 5%);
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    font-family: "Biko Regular";
+    border: 2px solid darken(rgb(255, 239, 225), 5%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+    background: lighten(rgb(255, 239, 225), 5%);
+    transition: 0.2s ease-in-out;
+
+    &:focus {
+      border: 2px solid darken(rgb(255, 239, 225), 15%);
+      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+      outline: none;
       transition: 0.2s ease-in-out;
-
-      &:focus {
-        border: 2px solid darken(rgb(255, 239, 225), 15%);
-        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
-        outline: none;
-        transition: 0.2s ease-in-out;
-      }
     }
+  }
 
-    #signup_button {
-      padding: 10px 30px;
-      font-size: 22px;
-      font-family: "Biko Bold";
-      border: 2px solid darken(rgb(255, 239, 225), 5%);
-      border-radius: 10px;
-      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
-      background: lighten(rgb(255, 239, 225), 5%);
+  #signup_button {
+    padding: 10px 30px;
+    font-size: 22px;
+    font-family: "Biko Bold";
+    border: 2px solid darken(rgb(255, 239, 225), 5%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+    background: lighten(rgb(255, 239, 225), 5%);
+    transition: 0.2s ease-in-out;
+    display: block;
+    margin: 0 auto;
+
+    &:hover {
       transition: 0.2s ease-in-out;
-      display: block;
-      margin: 0 auto;
-
-      &:hover {
-        transition: 0.2s ease-in-out;
-        transform: scale(1.1);
-      }
-
-      &:focus {
-        border: 2px solid darken(rgb(255, 239, 225), 15%);
-        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
-        outline: none;
-        transition: 0.2s;
-      }
+      transform: scale(1.1);
     }
 
-    #signin {
-      font-family: "Biko Regular";
-      text-align: center;
-      margin-top: 25px;
-      font-size: 22px;
+    &:focus {
+      border: 2px solid darken(rgb(255, 239, 225), 15%);
+      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+      outline: none;
+      transition: 0.2s;
+    }
+  }
 
-      a {
-        color: rgb(85, 175, 211);
-      }
+  #signin {
+    font-family: "Biko Regular";
+    text-align: center;
+    margin-top: 25px;
+    font-size: 22px;
+
+    a {
+      color: rgb(85, 175, 211);
     }
   }
 }
@@ -253,6 +255,31 @@ select {
     box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
     outline: none;
     transition: 0.2s ease-in-out;
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 1200px) {
+  #wrapper {
+    margin-top: 1rem;
+  }
+}
+
+// phones
+@media screen and (max-width: 450px) {
+  #wrapper {
+    margin-top: 1rem;
+  }
+
+  h1 {
+    font-size: 48px;
+  }
+
+  form {
+    label {
+      font-size: 18px;
+      font-family: "Biko Bold";
+      opacity: 0.6;
+    }
   }
 }
 </style>

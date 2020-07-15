@@ -1,9 +1,10 @@
 <template>
   <div id="signin">
-    <h1>
-      <span>Sign in</span> to an account
-    </h1>
     <div id="wrapper">
+      <h1>
+        <span>Sign in</span> to an account
+      </h1>
+
       <form @submit.prevent="signinUser()">
         <label for="email">Email</label>
         <input
@@ -62,7 +63,7 @@ export default Vue.extend({
             if (response.data.status == "ok") {
               if (bcrypt.compareSync(user.password, response.data.user.password)) {
 
-                //   start session and save nickname of user
+                // start session and save nickname of user
                 // move user to previous route (fish, bugs, etc.)
                 // @ts-ignore
                 this.$session.start();
@@ -105,10 +106,20 @@ export default Vue.extend({
 
 <style lang="scss" scoped>
 #signin {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  position: absolute;
+  width: 100%;
+  height: auto;
+  position: relative;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+  height: 100%;
+  margin-top: 10%;
 }
 
 h1 {
@@ -128,88 +139,90 @@ h1 {
   }
 }
 
-#wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  margin-top: 2rem;
+form {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 
-  form {
-    display: table;
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
+  label,
+  input {
+    display: table-row;
+  }
 
-    label,
-    input {
-      display: table-row;
-    }
+  label {
+    font-size: 22px;
+    font-family: "Biko Bold";
+    opacity: 0.6;
+  }
 
-    label {
-      font-size: 22px;
-      font-family: "Biko Bold";
-      opacity: 0.6;
-    }
+  input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 22px;
+    margin-top: 5px;
+    margin-bottom: 25px;
+    font-family: "Biko Regular";
+    border: 2px solid darken(rgb(255, 239, 225), 5%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+    background: lighten(rgb(255, 239, 225), 5%);
+    transition: 0.2s ease-in-out;
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      font-size: 22px;
-      margin-top: 5px;
-      margin-bottom: 25px;
-      font-family: "Biko Regular";
-      border: 2px solid darken(rgb(255, 239, 225), 5%);
-      border-radius: 10px;
-      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
-      background: lighten(rgb(255, 239, 225), 5%);
+    &:focus {
+      border: 2px solid darken(rgb(255, 239, 225), 15%);
+      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+      outline: none;
       transition: 0.2s ease-in-out;
-
-      &:focus {
-        border: 2px solid darken(rgb(255, 239, 225), 15%);
-        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
-        outline: none;
-        transition: 0.2s ease-in-out;
-      }
     }
+  }
 
-    #signin_button {
-      padding: 10px 30px;
-      font-size: 22px;
-      font-family: "Biko Bold";
-      border: 2px solid darken(rgb(255, 239, 225), 5%);
-      border-radius: 10px;
-      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
-      background: lighten(rgb(255, 239, 225), 5%);
+  #signin_button {
+    padding: 10px 30px;
+    font-size: 22px;
+    font-family: "Biko Bold";
+    border: 2px solid darken(rgb(255, 239, 225), 5%);
+    border-radius: 10px;
+    box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 5%);
+    background: lighten(rgb(255, 239, 225), 5%);
+    transition: 0.2s ease-in-out;
+    display: block;
+    margin: 0 auto;
+
+    &:hover {
       transition: 0.2s ease-in-out;
-      display: block;
-      margin: 0 auto;
-
-      &:hover {
-        transition: 0.2s ease-in-out;
-        transform: scale(1.1);
-      }
-
-      &:focus {
-        border: 2px solid darken(rgb(255, 239, 225), 15%);
-        box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
-        outline: none;
-        transition: 0.2s;
-      }
+      transform: scale(1.1);
     }
 
-    #signup {
-      font-family: "Biko Regular";
-      text-align: center;
-      margin-top: 25px;
-      font-size: 22px;
-
-      a {
-        color: rgb(85, 175, 211);
-      }
+    &:focus {
+      border: 2px solid darken(rgb(255, 239, 225), 15%);
+      box-shadow: 5px 5px 0px darken(rgb(255, 239, 225), 15%);
+      outline: none;
+      transition: 0.2s;
     }
+  }
+
+  #signup {
+    font-family: "Biko Regular";
+    text-align: center;
+    margin-top: 25px;
+    font-size: 22px;
+
+    a {
+      color: rgb(85, 175, 211);
+    }
+  }
+}
+
+// phones
+@media screen and (max-width: 450px) {
+  #wrapper {
+    margin-top: 20%;
+  }
+
+  h1 {
+    font-size: 48px;
   }
 }
 </style>

@@ -148,7 +148,6 @@ export default Vue.extend({
   }
 
   div {
-    width: 90%;
     margin-left: auto;
     margin-right: auto;
     font-family: "Biko Regular";
@@ -189,6 +188,27 @@ export default Vue.extend({
 
   .overlay {
     z-index: 101;
+  }
+}
+
+// phones
+@media screen and (max-width: 450px) {
+  #picture-and-more {
+    div {
+      p {
+        font-size: 16px;
+      }
+
+      p:nth-child(2) {
+        font-size: 14px;
+      }
+    }
+  }
+
+  #info {
+    p {
+      font-size: 16px;
+    }
   }
 }
 </style>
