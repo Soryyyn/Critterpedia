@@ -23,7 +23,11 @@
 <script lang="ts">
 import Vue from 'vue'
 export default Vue.extend({
-  name: 'NavComponent'
+  name: 'NavComponent',
+
+  methods: {
+
+  }
 })
 </script>
 
@@ -81,7 +85,8 @@ ul li {
 
   .fa-home,
   .fa-fish,
-  .fa-bug {
+  .fa-bug,
+  .fa-user {
     color: var(--fontColor);
     font-size: 20px;
     margin-right: 5px;

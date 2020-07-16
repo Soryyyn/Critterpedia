@@ -8,6 +8,7 @@ import FishComponent from '@/components/FishComponent.vue';
 import BugsComponent from '@/components/BugsComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import SigninComponent from '@/components/SigninComponent.vue';
+import SettingsComponent from '@/components/SettingsComponent.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -52,6 +53,14 @@ const routes: Array<RouteConfig> = [
     component: SigninComponent,
     meta: {
       title: "Signin | Critterpedia"
+    }
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    component: SettingsComponent,
+    meta: {
+      title: "Settings | Critterpedia"
     }
   },
   {
