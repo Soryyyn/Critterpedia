@@ -5,6 +5,7 @@
       "ES6"
     ],
     "module": "commonjs",
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "noEmitOnError": true,
     "noImplicitReturns": true,

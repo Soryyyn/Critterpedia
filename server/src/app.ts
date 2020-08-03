@@ -1,93 +1,36 @@
-// express & axios, more
-import * as express from "express";
+import express = require("express");
 import axios from "axios";
-import * as path from "path";
-import history = require('connect-history-api-fallback');
+import path from "path";
+import history from 'connect-history-api-fallback';
+import bodyParser from "body-parser";
+import cors from "cors";
+import morgan from "morgan";
 
-// express plugins
-import * as bodyParser from "body-parser";
-import * as cors from "cors";
-import * as morgan from "morgan";
-import rateLimit = require("express-rate-limit");
-import Filter = require("bad-words");
-
-// create express app
-// and load plugins
-const app = express();
-app.use(bodyParser.json()); // used for parsing json request
-app.use(cors()); // security stuff
-app.use(history());
-
-if (process.env.NODE_ENV != "production") {
-    app.use(morgan("dev")); // better logging
-}
+// limit post request (server stability & safety)
+import rateLimit from "express-rate-limit";
 
 // create bad word filter
+import Filter from "bad-words";
 const filter = new Filter();
 
-// import user collection from db file
-// setup mongoose and set schema
-import mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+// create express app
+const app = express();
 
-// setup port & db connection for local or prod
-const PORT = process.env.PORT || 8081
-const CONNECTION_URI = process.env.MONGODB_URI || "mongodb://localhost:27017/Critterpedia";
-
-// Connect MongoDB at default port 27017
-mongoose.connect(CONNECTION_URI, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-}, (err) => {
-    if (!err) {
-        console.log('connected to mongodb')
-    } else {
-        console.log(`error when connecting to mongodb: ${err}`)
-    }
-});
-
-// define user schema
-let userSchema = new Schema({
-    nickname: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    fish: [
-        {
-            fish: Number,
-            caught: Boolean,
-            favorited: Boolean
-        }
-    ],
-    bugs: [
-        {
-            bug: Number,
-            caught: Boolean,
-            favorited: Boolean
-        }
-    ],
-    hemisphere: {
-        type: String,
-        default: "Northern",
-        required: true
-    }
-});
-
-// define model
-export const userCollection = mongoose.model("users", userSchema);
-
-// serve vue static files
+// let express use plugins
 app.use(express.static(path.join(__dirname, "..", "..", "client", "dist")))
+app.use(history());
+app.set('trust proxy', 1); // trust proxy for heroku
+app.use(bodyParser.json());
+app.use(cors());
+if (process.env.NODE_ENV != "production") {
+    app.use(morgan("dev"));
+}
 
+// local port or deployed port
+const PORT = process.env.PORT || 8081;
+
+// import db
+import { userCollection } from "./db";
 
 //
 // GET-REQUESTS
@@ -360,14 +303,11 @@ app.post("/bugs", async (req, res) => {
 
 });
 
-// limit express posts
-// 1 post per ip in 1 second
-app.use(rateLimit({
-    windowMs: 1000,
-    max: 1
-}));
-
-app.post("/signup", async (req, res) => {
+app.post("/signup", rateLimit({
+    windowMs: 5 * 60 * 1000,  // 5 minute window
+    max: 5, // start blocking after
+    message: "Limit reached from this IP, please try again in a few minutes"
+}), async (req, res) => {
 
     // create data
     let data = {
