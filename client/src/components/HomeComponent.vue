@@ -13,6 +13,8 @@
         <br />Animal Crossing: New Horizons.
         <br />
         <br />It shows you which fish & bugs are currently catchable. If you create a login, you can even favorite them and mark them as catched to keep track of your catches.
+        <br />
+        <br />If you like this website or would like to support this project, don't hesitate to visit the sponsor page!
       </h3>
 
       <div id="dev-links">
@@ -96,8 +98,9 @@ h1 {
 
 #desc {
   font-family: "Biko Regular";
-  letter-spacing: 1px;
+  // letter-spacing: 1px;
   color: var(--fontLighterColor);
+  font-weight: 200;
   font-size: 20px;
   text-align: center;
 
