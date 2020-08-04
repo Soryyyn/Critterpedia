@@ -73,6 +73,7 @@ export default Vue.extend({
                 this.$session.set("hemisphere", response.data.user.hemisphere);
                 // @ts-ignore
                 this.$router.push({ name: 'Home' })
+                window.location.reload()
               } else {
                 // @ts-ignore
                 this.$notify({
@@ -109,7 +110,7 @@ export default Vue.extend({
   width: 100%;
   height: auto;
   position: relative;
-  top: 0;
+  top: 10%;
   left: 0;
 
   display: flex;
@@ -118,8 +119,7 @@ export default Vue.extend({
 }
 
 #wrapper {
-  height: 100%;
-  margin-top: 10%;
+  width: 100%;
 }
 
 h1 {
@@ -143,7 +143,7 @@ form {
   display: table;
   margin-left: auto;
   margin-right: auto;
-  width: 80%;
+  width: 50%;
 
   label,
   input {
@@ -217,12 +217,13 @@ form {
 
 // phones
 @media screen and (max-width: 450px) {
-  #wrapper {
-    margin-top: 20%;
-  }
-
   h1 {
     font-size: 48px;
+    line-height: 90%;
+  }
+
+  form {
+    width: 80%;
   }
 }
 </style>

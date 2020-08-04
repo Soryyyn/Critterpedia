@@ -86,7 +86,8 @@ export default Vue.extend({
               // @ts-ignore
               this.$session.set("hemisphere", response.data.user.hemisphere);
               // @ts-ignore
-              this.$router.push({ name: 'Home' })
+              this.$router.push({ name: 'Sponsor' })
+              window.location.reload()
             } else {
               // @ts-ignore
               this.$notify({
@@ -272,6 +273,7 @@ select {
 
   h1 {
     font-size: 48px;
+    line-height: 90%;
   }
 
   form {

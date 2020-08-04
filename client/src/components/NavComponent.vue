@@ -17,9 +17,19 @@
         <i class="fas fa-heart"></i>
         <p>Sponsor</p>
       </router-link>
-      <router-link tag="li" :to="{ name: 'Signin'}">
-        <i class="fas fa-user"></i>
-      </router-link>
+
+      <div id="right-side">
+        <div v-if="!this.$session.exists()">
+          <router-link tag="li" :to="{ name: 'Signin'}">
+            <i class="fas fa-user"></i>
+          </router-link>
+        </div>
+        <div v-else>
+          <router-link tag="li" :to="{ name: 'Settings'}">
+            <i class="fas fa-cogs"></i>
+          </router-link>
+        </div>
+      </div>
     </ul>
   </nav>
 </template>
@@ -53,6 +63,8 @@ ul {
 
 ul li {
   padding: 10px;
+  height: 25px;
+  min-width: 25px;
   background: var(--mainColor_Light_Lighter);
   position: relative;
   border: 2px solid var(--mainColor_Light_Accent);
@@ -69,12 +81,8 @@ ul li {
   align-items: center;
   justify-content: left;
 
-  &:not(:first-child):not(:last-child) {
+  &:not(:first-child) {
     margin-left: 10px;
-  }
-
-  &:last-child {
-    margin-left: auto;
   }
 
   &.router-link-exact-active {
@@ -90,7 +98,6 @@ ul li {
   .fa-home,
   .fa-fish,
   .fa-bug,
-  .fa-user,
   .fa-heart {
     color: var(--fontColor);
     font-size: 20px;
@@ -98,14 +105,29 @@ ul li {
     vertical-align: middle;
   }
 
-  .fa-user {
+  .fa-user,
+  .fa-cogs {
     margin-left: 2px;
     margin-right: 2px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    i {
+      margin-right: 0 !important;
+    }
   }
 }
 
+#right-side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+}
+
 #sponsor-button {
-  background: rgb(255, 219, 219);
+  background: rgb(255, 232, 232);
   border: 2px solid rgb(255, 189, 189);
   box-shadow: 5px 5px 0px rgb(255, 189, 189);
   color: rgb(204, 65, 65);
@@ -125,7 +147,8 @@ ul li {
     .fa-home,
     .fa-fish,
     .fa-bug,
-    .fa-user {
+    .fa-user,
+    .fa-heart {
       margin-right: 0 !important;
       font-size: 24px !important;
     }
