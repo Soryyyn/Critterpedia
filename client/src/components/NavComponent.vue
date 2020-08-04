@@ -13,6 +13,10 @@
         <i class="fas fa-bug"></i>
         <p>Bugs</p>
       </router-link>
+      <router-link tag="li" id="sponsor-button" :to="{ name: 'Sponsor'}">
+        <i class="fas fa-heart"></i>
+        <p>Sponsor</p>
+      </router-link>
       <router-link tag="li" :to="{ name: 'Signin'}">
         <i class="fas fa-user"></i>
       </router-link>
@@ -86,7 +90,8 @@ ul li {
   .fa-home,
   .fa-fish,
   .fa-bug,
-  .fa-user {
+  .fa-user,
+  .fa-heart {
     color: var(--fontColor);
     font-size: 20px;
     margin-right: 5px;
@@ -96,6 +101,22 @@ ul li {
   .fa-user {
     margin-left: 2px;
     margin-right: 2px;
+  }
+}
+
+#sponsor-button {
+  background: rgb(255, 219, 219);
+  border: 2px solid rgb(255, 189, 189);
+  box-shadow: 5px 5px 0px rgb(255, 189, 189);
+  color: rgb(204, 65, 65);
+
+  i {
+    color: rgb(204, 65, 65);
+  }
+
+  &:hover {
+    border: 2px solid rgb(255, 158, 158);
+    box-shadow: 5px 5px 0px rgb(255, 158, 158);
   }
 }
 

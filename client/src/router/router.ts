@@ -9,6 +9,7 @@ import BugsComponent from '@/components/BugsComponent.vue';
 import SignupComponent from '@/components/SignupComponent.vue';
 import SigninComponent from '@/components/SigninComponent.vue';
 import SettingsComponent from '@/components/SettingsComponent.vue';
+import SponsorComponent from '@/components/SponsorComponent.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -61,6 +62,14 @@ const routes: Array<RouteConfig> = [
     component: SettingsComponent,
     meta: {
       title: "Settings | Critterpedia"
+    }
+  },
+  {
+    path: '/sponsor',
+    name: 'Sponsor',
+    component: SponsorComponent,
+    meta: {
+      title: "Sponsor | Critterpedia"
     }
   },
   {
