@@ -140,6 +140,11 @@ ul li {
     border: 2px solid rgb(255, 158, 158);
     box-shadow: 5px 5px 0px rgb(255, 158, 158);
   }
+
+  &.router-link-exact-active {
+    border: 2px solid rgb(255, 158, 158);
+    box-shadow: 5px 5px 0px rgb(255, 158, 158);
+  }
 }
 
 @media screen and (max-width: 450px) {

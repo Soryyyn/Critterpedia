@@ -57,7 +57,7 @@ h1 {
   #title {
     color: rgb(255, 67, 67);
     font-family: "Biko Black";
-    text-shadow: 3px 3px 0px var(--fontShadow);
+    text-shadow: 3px 3px 0px rgba(133, 26, 26, 0.2);
     -webkit-text-stroke-width: 2px;
     -webkit-text-stroke-color: rgb(133, 26, 26);
   }
