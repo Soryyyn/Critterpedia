@@ -49,5 +49,9 @@ export const userCollection = mongoose.model("users", new Schema({
         type: String,
         default: "Northern",
         required: true
+    },
+    authenticated: {
+        type: Boolean,
+        default: false
     }
 }));

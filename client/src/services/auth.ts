@@ -42,5 +42,10 @@ export default {
     // and more in db
     postSignin(data: any) {
         return api().post("/signin", data);
+    },
+
+    // get client settings from db
+    getSettings(userid: any) {
+        return api().get(`/settings/${userid}`);
     }
 }

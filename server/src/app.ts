@@ -144,6 +144,39 @@ app.get("/bugs/:userid", (req, res) => {
 
 });
 
+app.get("/settings/:userid", (req, res) => {
+
+    userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
+
+        if (err) {
+            res.json({
+                status: "error",
+                msg: "Couldn't search in db",
+                error: err
+            });
+        } else {
+            if (doc != null) {
+                res.json({
+                    status: "ok",
+                    msg: "User has been found, getting settings",
+                    settings: {
+                        email: doc.get("email"),
+                        resetLink: "none", // add reset link
+                        hemisphere: doc.get("hemisphere")
+                    }
+                });
+            } else {
+                res.json({
+                    status: "error",
+                    msg: "No user with that id found"
+                });
+            }
+        }
+
+    });
+
+});
+
 
 //
 // POST-REQUESTS
