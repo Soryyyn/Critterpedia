@@ -1,7 +1,8 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/soryyyn/critterpedia/master/assets/titleSprite.png" width="200" title="titleCard">
+  <img src="https://raw.githubusercontent.com/soryyyn/critterpedia/master/assets/titleSprite.png" width="400" title="titleCard">
 </p>
-<h1 align="center">Critterpedia from Animal Crossing</h1>
+
+---
 
 I'm aiming to make catching all the creatures in Animal Crossing: New Horizons easier for everyone with this project! It (currently) shows all fish & bugs but if more are added I'm happy to add them to the website/project! If you sign up, you'll also be able to save, favorite and see if the current creature is available to catch!
 
