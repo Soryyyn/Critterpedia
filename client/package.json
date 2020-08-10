@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
-    "@types/lodash": "^4.14.158",
+    "@types/lodash": "^4.14.159",
     "@types/moment": "^2.13.0",
     "@vue/cli-plugin-router": "~4.4.6",
     "@vue/cli-plugin-typescript": "~4.4.6",
