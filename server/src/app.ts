@@ -32,6 +32,9 @@ const PORT = process.env.PORT || 8081;
 // import db
 import { userCollection } from "./db";
 
+// import mailer
+import { transporter } from "./mail";
+
 //
 // GET-REQUESTS
 //
@@ -161,7 +164,6 @@ app.get("/settings/:userid", (req, res) => {
                     msg: "User has been found, getting settings",
                     settings: {
                         email: doc.get("email"),
-                        resetLink: "none", // add reset link
                         hemisphere: doc.get("hemisphere")
                     }
                 });
@@ -378,9 +380,11 @@ app.post("/signup", rateLimit({
                     error: err
                 });
             } else {
+                // TODO: send mail here
+
                 res.json({
                     status: "ok",
-                    msg: `New user has been created`,
+                    msg: `New user has been created, waiting for auth`,
                     user: doc
                 });
             }

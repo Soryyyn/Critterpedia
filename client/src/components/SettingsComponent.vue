@@ -27,7 +27,6 @@ export default Vue.extend({
     return {
       currentSettings: {
         email: "",
-        resetLink: "",
         hemisphere: ""
       },
       originalSettings: {},
@@ -37,7 +36,7 @@ export default Vue.extend({
 
   methods: {
     checkChange() {
-      // email changes
+      // @ts-ignore
       if (this.currentSettings.email != this.originalSettings.email) {
         // @ts-ignore
         document.getElementById("settingsForm").elements[0].setAttribute("style", "color: green");
@@ -48,7 +47,7 @@ export default Vue.extend({
         this.changed = false;
       }
 
-      // hemisphere changes
+      // @ts-ignore
       if (this.currentSettings.hemisphere != this.originalSettings.hemisphere) {
         // @ts-ignore
         document.getElementById("settingsForm").elements[2].setAttribute("style", "color: green");
