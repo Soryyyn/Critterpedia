@@ -55,19 +55,3 @@ export const userCollection = mongoose.model("users", new Schema({
         default: false
     }
 }));
-
-// defining secrets schema & collection
-export const secretsCollection = mongoose.model("secrets", new Schema({
-    userId: {
-        type: String,
-        required: true
-    },
-    secret: {
-        type: String,
-        required: true
-    },
-    dateOfCreation: {
-        type: Date,
-        default: Date.now
-    }
-}));

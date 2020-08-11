@@ -4,6 +4,7 @@
       <h1>Settings</h1>
 
       <form id="settingsForm" @change="checkChange">
+        <button id="signOut" @click="signOut">Sign out</button>
         <label for="email">Email</label>
         <input type="text" name="email" v-model="currentSettings.email" />
         <label for="email">Password</label>
@@ -57,7 +58,14 @@ export default Vue.extend({
         document.getElementById("settingsForm").elements[2].setAttribute("style", "color: var(--fontColor)");
         this.changed = false;
       }
+    },
 
+    signOut() {
+      // @ts-ignore
+      this.$session.destroy();
+      // @ts-ignore
+      this.$router.push({ name: 'Home' })
+      window.location.reload()
     }
   },
 
@@ -183,6 +191,7 @@ form {
   }
 }
 
+#signOut,
 #saveChanges {
   grid-column-start: 1;
   grid-column-end: 3;

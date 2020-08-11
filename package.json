@@ -8,5 +8,8 @@
     "dev-server": "nodemon server/dist/app.js",
     "start": "node server/dist/app.js",
     "heroku-postbuild": "npm run build-client && npm run install-client && npm run install-server"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
   }
 }
