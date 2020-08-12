@@ -318,7 +318,7 @@ app.post("/bugs", async (req, res) => {
                         res.json({
                             status: "ok",
                             msg: "Added new entry for bug in user",
-                            error: doc
+                            data: doc
                         });
                     }
 
@@ -403,8 +403,7 @@ app.post("/signup", rateLimit({
                     } else {
                         res.json({
                             status: "ok",
-                            msg: `New user has been created, sent auth mail`,
-                            user: doc
+                            msg: `New user has been created, sent auth mail`
                         });
                     }
                 });
@@ -446,7 +445,42 @@ app.post("/signin", async (req, res) => {
 });
 
 app.post("/auth/:userid", (req, res) => {
+    userCollection.findOne({ _id: req.params.userid }, (err, doc) => {
 
+        if (err) {
+            res.json({
+                status: "error",
+                msg: "Couldn't search in db",
+                error: err
+            });
+        } else {
+            if (doc != null) {
+                userCollection.updateOne(doc, {
+                    $set: { authenticated: true }
+                })
+                    .then(() => {
+                        res.json({
+                            status: "ok",
+                            msg: "Authenticated user",
+                            user: doc
+                        });
+                    })
+                    .catch((err) => {
+                        res.json({
+                            status: "error",
+                            msg: "Couldn't authenticate user",
+                            error: err
+                        });
+                    });
+            } else {
+                res.json({
+                    status: "error",
+                    msg: "No user with that id found"
+                });
+            }
+        }
+
+    });
 });
 
 // make express build for production if necessary

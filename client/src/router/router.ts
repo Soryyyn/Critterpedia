@@ -10,6 +10,7 @@ import SignupComponent from '@/components/SignupComponent.vue';
 import SigninComponent from '@/components/SigninComponent.vue';
 import SettingsComponent from '@/components/SettingsComponent.vue';
 import SponsorComponent from '@/components/SponsorComponent.vue';
+import AuthComponent from '@/components/AuthComponent.vue';
 
 // use vue router plugin
 Vue.use(VueRouter);
@@ -70,6 +71,14 @@ const routes: Array<RouteConfig> = [
     component: SponsorComponent,
     meta: {
       title: "Sponsor | Critterpedia"
+    }
+  },
+  {
+    path: "/auth",
+    name: "Auth",
+    component: AuthComponent,
+    meta: {
+      title: "Authentication | Critterpedia"
     }
   },
   {

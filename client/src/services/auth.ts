@@ -47,5 +47,10 @@ export default {
     // get client settings from db
     getSettings(userid: any) {
         return api().get(`/settings/${userid}`);
+    },
+
+    // auth user
+    authUser(userid: any) {
+        return api().post(`/auth/${userid}`);
     }
 }
