@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/soryyyn/critterpedia/master/assets/titleSprite.png" width="400" title="titleCard">
+  <img src="https://raw.githubusercontent.com/soryyyn/critterpedia/master/assets/titleSprite.png" width="600" title="titleCard">
 </p>
 
 ---
