@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.14.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "lodash": "^4.17.20",
     "moment": "^2.27.0",
