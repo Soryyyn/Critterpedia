@@ -80,21 +80,21 @@ export default Vue.extend({
           .then((response) => {
             if (response.data.status == "ok") {
               // // @ts-ignore
-              // this.$session.start();
+              this.$session.start();
               // // @ts-ignore
-              // this.$session.set("userid", response.data.user._id);
+              this.$session.set("userid", response.data.user._id);
               // // @ts-ignore
-              // this.$session.set("hemisphere", response.data.user.hemisphere);
+              this.$session.set("hemisphere", response.data.user.hemisphere);
               // @ts-ignore
               this.$router.push({ name: 'Home' })
               window.location.reload()
               // @ts-ignore
-              this.$notify({
-                type: "catching",
-                title: "Authentication needed",
-                text: "I've sent you a email, please press the link in said email to authenticate your account",
-                duration: 8000
-              });
+              // this.$notify({
+              //   type: "catching",
+              //   title: "Authentication needed",
+              //   text: "I've sent you a email, please press the link in said email to authenticate your account",
+              //   duration: 8000
+              // });
             } else {
               // @ts-ignore
               this.$notify({

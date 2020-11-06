@@ -381,32 +381,32 @@ app.post("/signup", rateLimit({
                 });
             } else {
                 // TODO: change mail on release
-                let mailOptions = {
-                    from: "Soryn Bächli <critterpedia@soryn.dev>",
-                    to: data.email,
-                    subject: "🍑 Critterpedia Authentication Email",
-                    html: `
-                        <html>
-                        <body>
-                            <h1 style="color: black">Hi ${data.nickname}!</h1>
-                            <p style="color: black">Please visit <a href="https://critterpedia.soryn.dev/auth/${user._id}" target="_blank">this link</a> to authenticate your account!</p>
-                            <p style="color: black">Have a nice day! 🧡</p>
-                            <p style="color: black">Soryn Bächli<br>(Dev of Critterpedia)</p>
-                        </body>
-                        </html>
-                    `
-                }
+                // let mailOptions = {
+                //     from: "Soryn Bächli <critterpedia@soryn.dev>",
+                //     to: data.email,
+                //     subject: "🍑 Critterpedia Authentication Email",
+                //     html: `
+                //         <html>
+                //         <body>
+                //             <h1 style="color: black">Hi ${data.nickname}!</h1>
+                //             <p style="color: black">Please visit <a href="https://critterpedia.soryn.dev/auth/${user._id}" target="_blank">this link</a> to authenticate your account!</p>
+                //             <p style="color: black">Have a nice day! 🧡</p>
+                //             <p style="color: black">Soryn Bächli<br>(Dev of Critterpedia)</p>
+                //         </body>
+                //         </html>
+                //     `
+                // }
 
-                transporter.sendMail(mailOptions, (err, info) => {
-                    if (err) {
-                        console.log(`error when sending auth mail: \n${err}`);
-                    } else {
-                        res.json({
-                            status: "ok",
-                            msg: `New user has been created, sent auth mail`
-                        });
-                    }
-                });
+                // transporter.sendMail(mailOptions, (err, info) => {
+                //     if (err) {
+                //         console.log(`error when sending auth mail: \n${err}`);
+                //     } else {
+                //         res.json({
+                //             status: "ok",
+                //             msg: `New user has been created, sent auth mail`
+                //         });
+                //     }
+                // });
             }
         });
 
